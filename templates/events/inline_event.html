@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block sheets %}
+		<link rel="stylesheet" type="text/css" href="{{MEDIA_URL}}/css/events.css" />
+{% endblock %}
+
+{% block title %}EDC | {{title}} {% endblock %}
+
+<!--menu block-->
+{% block menu %}
+{% include "includes/menu.html" %}
+{% endblock %}
+
+<!--content block-->
+{% block content %}
+	<div id="main_img"><img src="{{MEDIA_URL}}/{%if event.banner %}{{event.banner}}{%else%}/images/home/home.jpg{%endif%}" /></div>
+	<div id="content">
+		
+		<span class="content_in_span" style="float:left;width:90%;">
+			{% if event.parent %}
+						<a class="blue_link" href="/events/{{event.parent.get_link}}/events/"><< Back to {{event.parent.name}} Events</a>
+			{% else %}
+						<a class="blue_link"  href="/events/"><< Back to Events</a>
+		
+			{%endif%}
+		</span>
+		<div class="outer" style="width:660px;margin:0px;">			
+		<span class="heading"><span class="heading_in">{{event.name}}</span></span>
+		<div class="content_in">
+		
+			{%include "includes/facebook.html" %}
+			<span class="content_in_span">
+			{%if event.is_valid%}
+				<strong style="color:green; font-size:14px;">Event scheduled on {{event.date_event}} at {{event.venue}}</strong>
+			{%else%}
+				<strong style="color:red;">This event concluded on {{event.date_event|date:'j M Y'}}</strong>
+			{%endif%}<br /><br />
+			{% autoescape off%}
+				{{event.intro}}
+			{% include "includes/guests.html" %}	
+			{% endautoescape %}			
+			</span>
+		</div>
+		</div>
+		
+		<div style="float:right">	
+		{% include "includes/announcements.html" %}
+		{% include "includes/partners.html" %}
+		{% include "includes/contacts.html" %}
+		</div>
+
+
+	</div><!--content ends here-->
+{% endblock %}
+	

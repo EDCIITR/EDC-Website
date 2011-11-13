@@ -1,0 +1,20 @@
+<div id="result_link">
+	           <a href="{{ result.object.get_absolute_url }}">Contact us - {%highlight result.object.name with request.GET.q%}</a>
+		   <span class="result_span">
+			<table>
+		<tr><td><img src="{{MEDIA_URL}}/{%if result.object.pic%}{{result.object.pic}}{%else%}default.jpg{%endif%}" width="75" height="75" /></td>
+			<td>
+			{%if result.object.name%}{%highlight result.object.name with request.GET.q%}<br />{%endif%}
+         		{%if result.object.email%}Email: {{result.object.email}}<br />{%endif%}
+			 {%if result.object.phone%}Phone: {{result.object.phone}}<br />{%endif%}
+			 {%if result.object.branch%}{{result.object.get_branch_display}}, {{result.object.get_year_display}} Year <br />{%endif%}
+			</td>
+		</tr>		
+		<tr>
+		 <td colspan="2" class="result_summary">{%if result.object.intro%} {%highlight result.object.intro with request.GET.q [max_length 100]%} {%endif%}</td>
+	
+		
+		</td>
+		</table>
+	</span>
+</div>

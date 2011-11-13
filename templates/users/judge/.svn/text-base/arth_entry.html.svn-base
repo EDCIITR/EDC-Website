@@ -1,0 +1,159 @@
+{% extends "base.html" %}
+{% block sheets %}
+<link rel="stylesheet" type="text/css" href="{{MEDIA_URL}}/css/judges.css" />
+<link rel="stylesheet" type="text/css" href="{{MEDIA_URL}}/css/forms.css" />
+
+{% endblock %}
+{% block title %}EDC | Judge Homepage {% endblock %}
+
+<!--menu block-->
+{% block menu %}
+{% include "includes/menu.html" %}
+{% endblock %}
+
+<!--content block-->
+{% block content %}
+	<div id="main_img"><img src="{{MEDIA_URL}}/images/home/home.jpg" /></div>
+	
+	<div id="content">
+		<div class="outer" style="width:1000px;margin:0;">		
+				<div class="content_in" style="border:0;">
+					<span class="content_in_span"> <a style="color:blue;" href="{{back}}">Back to teams</a><br />
+					{%ifequal success 0%}
+						<img src="{{MEDIA_URL}}/images/icon_fail.gif" />
+						<strong style="color:red;">{{msg}}</strong>
+					{%endifequal%}
+
+					{%ifequal success 1%}
+						<img src="{{MEDIA_URL}}/images/icon_success.gif" />
+						<strong style="color:green;">{{msg}}</strong>
+					{%endifequal%}
+				
+		
+					<form action="#" method="POST">{% csrf_token %}
+						
+					<table cellpadding="10" class="arth_ent_main">
+						<tr class="arth_ent_heading">
+							<td class="arth_ent_category" style="background-color:inherit; width:800px;">{{team.name}}</td>
+							<td class="arth_ent_scores">Scores</td>
+						</tr>
+						<tr class="arth_ent_category">
+							<td>
+								<strong>Brief Introduction</strong>
+								<p>
+									{%autoescape off%}
+										{{data.intro}}
+									{%endautoescape%}
+								</p>
+							</td>
+						</tr>
+					
+						<tr class="arth_ent_category">
+							<td class="arth_ent_category">
+								<strong>Company Overview</strong>
+								<p>
+									{%autoescape off%}
+										{{data.overview}}
+									{%endautoescape%}
+								</p>
+
+								<td>{{form.score_overview}}/10</td>
+							</td>
+						</tr>
+
+						<tr class="arth_ent_category">
+							<td>
+								<strong>Products/Services</strong>
+								<p>
+									{%autoescape off%}
+										{{data.product}}
+									{%endautoescape%}
+								</p>
+
+								<td>{{form.score_product}}/10</td>
+							</td>
+						</tr>
+
+						<tr class="arth_ent_category">
+							<td>
+								<strong>Market and Marketing Strategy</strong>
+								<p>
+									{%autoescape off%}
+										{{data.market}}
+									{%endautoescape%}
+								</p>
+
+								<td>{{form.score_market}}/10</td>
+							</td>
+						</tr>
+			
+						<tr class="arth_ent_category">
+							<td>
+								<strong>Management</strong>
+								<p>
+									{%autoescape off%}
+										{{data.management}}
+									{%endautoescape%}
+								</p>
+
+								<td>{{form.score_management}}/10</td>
+							</td>
+						</tr>
+
+						<tr class="arth_ent_category">
+							<td>
+								<strong>Financials</strong>
+								<p>
+									{%autoescape off%}
+										{{data.financials}}
+									{%endautoescape%}
+								</p>
+
+								<td>{{form.score_financials}}/10</td>
+							</td>
+						</tr>
+
+						<tr class="arth_ent_category">
+							<td>
+								<strong>Viability</strong>
+								<p>
+									{%autoescape off%}
+										{{data.viability}}
+									{%endautoescape%}
+								</p>
+
+								<td>{{form.score_viability}}/10</td>
+							</td>
+						</tr>
+
+						<tr class="arth_ent_category">
+							<td>
+								<strong>Offering</strong>
+								<p>
+									{%autoescape off%}
+										{{data.offering}}
+									{%endautoescape%}
+								</p>
+
+								<td>{{form.score_offering}}/10</td>
+							</td>
+						</tr>
+
+						<tr class="arth_ent_category">
+							<td>
+								<strong>Comments (visible to the team)</strong>
+								<p>
+									{{form.comment}}
+								</p>
+
+								<input type="submit" value="Submit" />
+							</td>
+						</tr>
+
+					</table>
+					</form>				
+				</div>
+		</div>
+	</div>
+{% endblock %}
+

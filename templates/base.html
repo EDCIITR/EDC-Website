@@ -1,0 +1,120 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" type="text/css" href="{{MEDIA_URL}}/css/main.css" />
+    {%block sheets %} {% endblock %}    
+    <title>{% block title %}{% endblock %}</title>
+
+<script type="text/javascript">
+var timer_lim=10;
+var timer_val = 0;
+var timer_interval = 1;
+var diff=10;
+
+function search_focus(obj)
+{
+	obj.value="";
+	search_expand();
+}
+
+function search_blur(obj)
+{
+	obj.value = "search edciitr.com";
+	search_contract();
+}
+
+function search_expand()
+{
+	if(timer_val<timer_lim)
+	{
+		obj = document.getElementById("q");
+		obj.style.width = (parseInt(obj.style.width) + diff) + 'px' ;
+		timer_val = timer_val + 1;
+		setTimeout(search_expand,timer_interval);
+	}
+}
+
+function search_contract()
+{
+	if(timer_val>0)
+	{
+		obj = document.getElementById("q");
+		obj.style.width = (parseInt(obj.style.width) - diff) + 'px' ;
+		timer_val = timer_val - 1;
+		setTimeout(search_contract,timer_interval);
+	}
+}
+</script>
+
+
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-22499093-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+</head>
+
+
+<body>
+   <div id="wrapper">  
+
+		<!--starts header-->   	
+		<div id="header">
+			<a href="/"><img src="{{MEDIA_URL}}/images/logo.jpg" /></a>
+			{%block facebook%} {%endblock%}
+			<span style="width:360px;margin:0;">
+				<span style="width:300px;">				
+					<a href="/users/register/?subscribe=1">Subscribe</a> | 
+					<a href="/feedback">Feedback</a> |
+					<a target="_blank" href="http://www.edciitroorkee.wordpress.com">Blog</a> | 
+					<a href="/contact">Contact</a>
+				</span>
+			
+				<span>
+				{%if not request.session.session_id%} 
+					<a class="blue_link" href="/users/login?next={{request.path}}">Login</a> | <a class="blue_link" href="/users/register">Register</a>				
+				{%else%}
+					Welcome <strong>{{request.session.name}}</strong>. <a class="blue_link" href="/users/logout/?next={{request.path}}">Logout</a> | <a class="blue_link" href="/users/edit">Edit Profile</a> {%ifequal request.session.category 'JUDGE' %}| <a href="/users/judge/">Judge Homepage</a>{%endifequal%}
+				{%endif%}
+				</span>
+			
+				<span >
+					<form action="/search/" method="GET" style="font-size:12px;width:360px;" ><input style="color:grey;font-size:12px;width:140px;" type="text" id="q" name="q" value="search edciitr.com"  onfocus="search_focus(this)" onblur="search_blur(this)" >
+							<input style="font-size:12px;" type="submit" value="Search"/>
+					</form>
+					</span>
+			</span>
+		</div>
+		<!--ends header-->
+
+		    {% block menu %}{% endblock %}  
+		    {% block content %}{% endblock %}
+
+
+		<!--starts footer-->
+	    	<div id="footer">
+			<hr />
+			<span style="float:left; padding-top:4px;">Copyright &copy 2010 Entrepreneurship Development Cell, IIT Roorkee</span>
+					<span style="float:right">
+					<a href="">Home </a> | 
+					<a href="/credits">Credits</a> 
+					<a target="_blank" href="http://www.facebook.com/pages/Roorkee-India/EDC-IITR/265096099170/"><img src="{{MEDIA_URL}}/images/fb.png" /></a>
+						<a target="_blank" href=""><img src="{{MEDIA_URL}}/images/twitter.jpg" /></a>
+					</span>
+		 </div>
+		 <!--ends footer-->
+    </div>	
+</body>
+</html>
+

@@ -1,0 +1,37 @@
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="{{MEDIA_URL}}/css/main.css" />
+	<link rel="stylesheet" type="text/css" href="{{MEDIA_URL}}/css/events.css" />
+</head>
+<body>
+	<div id="wrapper" style="width:800px;">
+		<div id="content">
+			<div class="outer" style="width:400px;">
+			<span class="heading"><span class="heading_in">{{event.name}}</span></span>
+		
+			<div class="content_in">
+				<span class="content_in_span">
+			{%if not event.is_valid %}
+				<span style="color:red"><img src="{{MEDIA_URL}}/images/icon_fail.gif" /> This event has concluded (on {{stage.date_end|date:'j M Y'}}) </span>						    
+			{%else%}
+				<span style="font-size:14px;">
+				 <strong>Date</strong> : {{event.date_event|date:'j M Y'}}<br />
+				 <strong>Time : </strong>{{event.date_event|date:'P'}}<br />
+				 <strong>Venue: </strong>{{event.venue}}<br />
+				</span>
+			{%endif%}	
+				{%autoescape off%}
+					{{event.intro}}
+				{%endautoescape%}
+				</span>
+			</div>
+			</div>		
+	
+			<div style="float:right">	
+			{% include "includes/partners.html" %}
+			{% include "includes/contacts.html" %}
+			</div>
+		</div><!--content-->	
+	</div>
+</body>
+</html>

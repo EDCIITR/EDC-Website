@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block sheets %}
+<link rel="stylesheet" type="text/css" href="{{MEDIA_URL}}/css/judges.css" /> 
+{% endblock %}
+{% block title %}EDC | Judge Homepage {% endblock %}
+
+<!--menu block-->
+{% block menu %}
+{% include "includes/menu.html" %}
+{% endblock %}
+
+<!--content block-->
+{% block content %}
+	<div id="main_img"><img src="{{MEDIA_URL}}/images/home/home.jpg" /></div>
+	
+	<div id="content">
+		<div class="outer" style="width:500px;margin:0;">		
+			<span class="heading"><span class="heading_in">Events you judge</span></span>
+				<div class="content_in" style="border:0;">
+					{%for event in events%}
+						<span class="long_link">
+							<a href="{{request.path}}{{event.get_link}}"><strong style="font-size:16px;">{{event.name}}</strong>
+							<p><strong>Total teams</strong>: {{event.get_num_teams_you}}</p>
+							<p><strong>Teams judged</strong>: {{event.get_num_judged_teams_you}} / {{event.get_num_teams_you}} </p>
+
+							</a>
+						</span>
+					{%endfor%}
+				</div>
+		</div>
+	</div>
+{% endblock %}
+

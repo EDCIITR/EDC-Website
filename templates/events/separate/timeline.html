@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block sheets %}<link rel="stylesheet" type="text/css" href="{{MEDIA_URL}}/css/homepage.css" /> {% endblock %}
+{% block title %} {{event.get_title}} {%endblock %}
+
+<!--menu block-->
+{% block menu %}
+{% include "includes/events_menu.html" %}
+{% endblock %}
+
+{%block facebook%}
+{%endblock%}
+
+<!--content block-->
+{% block content %}
+	<div id="main_img">
+		{%if event.banner %}
+			<img src="{{MEDIA_URL}}/{{event.banner}}" />
+		{% else %}	
+			<img src="{{MEDIA_URL}}/images/home/home.jpg" />
+		{%endif%}		
+	</div>
+	
+	<div id="content">
+		<div style="width:1000px;">
+			<span class="heading"><span class="heading_in">Timeline</span></span>
+			<div class="content_in">
+				<span class="content_in_span">	
+				<ol>
+				{%autoescape off%}
+					{%for stage in stages%}
+						<li><strong style="color:blue;font-size:14px;">{{stage.name}}</strong><br />
+						    {%if not stage.is_valid %}
+							<span style="color:red"><img src="{{MEDIA_URL}}/images/icon_fail.gif" /> This stage has concluded (on {{stage.date_end|date:'j M Y'}}) </span>						    
+							{%else%}
+							Starts: <strong>{{stage.date_start|date:'j M Y, P' }} </strong><br />
+							Ends: <strong>{{stage.date_end|date:'j M Y, P'}}</strong>
+						    {%endif%}<br /><br />
+						{{stage.details}}		
+						{%if not forloop.last%}<hr class="content_ruler" style="padding:5px 0px 5px 0px;">{%endif%}
+						</li>		
+					{%endfor%}
+				{%endautoescape%}
+				</ol>			
+				</span>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+

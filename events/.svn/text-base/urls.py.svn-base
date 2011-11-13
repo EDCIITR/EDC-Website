@@ -1,0 +1,20 @@
+from django.conf.urls.defaults import *
+
+urlpatterns = patterns('events.views',
+    (r'^$','index'),
+    (r'^(?P<domain>\w+)/$','introduction'),
+    (r'^(?P<domain>\w+)/(?P<num>\d+)/$','introduction'),
+    (r'^(?P<domain>\w+)/(?P<num>\d+)/overview/$','overview'),
+    (r'^(?P<domain>\w+)/(?P<num>\d+)/timeline/$','timeline'),
+    (r'^(?P<domain>\w+)/(?P<num>\d+)/incentives/$','incentives'),
+    (r'^(?P<domain>\w+)/(?P<num>\d+)/faq/$','faq'),
+    (r'^(?P<domain>\w+)/(?P<num>\d+)/contact/$','contact'),
+    (r'^(?P<domain>\w+)/(?P<num>\d+)/sponsors/$','sponsors'),
+    (r'^(?P<domain>\w+)/(?P<num>\d+)/rules/$','rules'), 	
+    (r'^(?P<domain>\w+)/(?P<num>\d+)/participate/$','participate'), 	
+    (r'^(?P<domain>\w+)/(?P<num>\d+)/participate/confirm/$','confirm'),
+    (r'^(?P<domain>\w+)/(?P<num>\d+)/participate/submit/$','submit'),
+    (r'^(?P<domain>\w+)/(?P<num>\d+)/result/$','result'),
+    (r'^(?P<domain>\w+)/(?P<num>\d+)/events/$','events'),
+    (r'^inside/(?P<domain>\w+)/(?P<num>\d+)/$','inside_events'),
+)

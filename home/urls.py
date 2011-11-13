@@ -1,0 +1,7 @@
+from django.conf.urls.defaults import *
+
+urlpatterns = patterns('home.views',
+    (r'^$','index'),
+    (r'^contact/$','contact'),
+    (r'^credits/$','credits'),
+)

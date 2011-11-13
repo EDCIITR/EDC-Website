@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block sheets %}
+		<link rel="stylesheet" type="text/css" href="{{MEDIA_URL}}/css/about.css" />
+		<link rel="stylesheet" type="text/css" href="{{MEDIA_URL}}/css/domcollapse.css" />
+
+		<script type="text/javascript" src="{{MEDIA_URL}}/js/collapse/domcollapse.js"></script>
+		<style type="text/css">
+			.my_links{
+				font-size:20px;
+			}
+		</style>
+{% endblock %}
+
+{% block title %}EDC | Reach Us {% endblock %}
+
+<!--menu block-->
+{% block menu %}
+{% include "includes/menu.html" %}
+{% endblock %}
+
+<!--content block-->
+{% block content %}
+	<div id="main_img"><img src="{{MEDIA_URL}}/images/home/home.jpg" /></div>
+
+	<div id="content">
+		<div class="outer" style="width:740px;margin:0px;" >
+			<span class="heading"><span class="heading_in">Web Credits</span></span>
+				<div  class="content_in" style="border:0">
+				<span class="content_in_span" style="font-size:12px;">
+				<strong>The contents of this page are the distorted personal opinions of the web developer and do not reflect the group's opinions in any which way.</strong><hr class="content_ruler" />
+					EDC IITR website is <a href="http://www.djangoproject.com/" target="_blank">Django</a> powered (read awesome). The website was designed and developed by (drumroll) <span class="my_links">Vikesh</span> (Bhikess, in the Bihari dialect) and Akshit Khurana. <br /><br />For hard rock, heavy metal, South Park, Pink Floyd, Led Zeppelin and Black Sabbath fans, know more <a class="my_links" href="http://about.me/vikeshkhanna" target="_blank">about me</a> or <a class="my_links" href="http://www.facebook.com/vikesh.khanna" target="_blank">stalk me</a> or <a class="my_links" href="http://www.youtube.com/user/vikeshkhanna">watch me</a>. <br /><br />For others, well, buck up! (start <a href="http://www.youtube.com/watch?v=LPMVAL024Hc" target="_blank">here</a>).  
+				</span>				
+				</div>			
+			</div>
+
+	</div><!--content ends here-->
+{% endblock %}
+

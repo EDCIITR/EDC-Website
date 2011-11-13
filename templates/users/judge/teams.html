@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block sheets %}<link rel="stylesheet" type="text/css" href="{{MEDIA_URL}}/css/judges.css" /> {% endblock %}
+{% block title %}EDC | Judge Homepage {% endblock %}
+
+<!--menu block-->
+{% block menu %}
+{% include "includes/menu.html" %}
+{% endblock %}
+
+<!--content block-->
+{% block content %}
+	<div id="main_img"><img src="{{MEDIA_URL}}/images/home/home.jpg" /></div>
+	
+	<div id="content">
+		<div class="outer" style="width:1000px;margin:0;">		
+				<div class="content_in" style="border:0;">
+				<table cellpadding="5" border="1" class="tab_main" >
+					<tr class="tab_heading">
+						<td class="tab_intro" style="text-align:center;">B Plan Introduction</td>
+						<td class="tab_scores">Scores</td>
+						<td class="tab_total">Total</td>
+						<td class="tab_comments">Comments</td>
+					</tr>
+					{%for team in teams%}
+					
+					<tr class="tab_content">
+						<td class="tab_intro">
+							{%autoescape off%}
+							{{team.get_data.intro|truncatewords:100}}
+							{%endautoescape%}
+						</td>
+					</tr>
+					{%endfor%}
+				</table>
+				</div>
+		</div>
+	</div>
+{% endblock %}
+

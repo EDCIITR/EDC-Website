@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% block sheets %}<link rel="stylesheet" type="text/css" href="{{MEDIA_URL}}/css/forms.css" /> {% endblock %}
+{% block title %}EDC | Register {% endblock %}
+
+<!--menu block-->
+{% block menu %}
+{% include "includes/menu.html" %}
+{% endblock %}
+
+<!--content block-->
+{% block content %}
+	<div id="main_img"><img src="{{MEDIA_URL}}/images/home/home.jpg" /></div>
+	
+	<div id="content">
+		<div id="edit" style="width:600px;">		
+			<span class="heading"><span class="heading_in">Edit Profile ({{request.session.session_id}})</span></span>
+				<div id="edit_in" class="content_in">
+					<span class="content_in_span">	
+						<form action="#" method="POST">{% csrf_token %}
+							<table>			
+							 <tr colspan="2"><td>{{form.non_field_errors}}
+									{%ifequal success 1 %}
+										<img src="{{MEDIA_URL}}/images/icon_success.gif" />
+										<span style="color:green; font-size:12px;">{{msg}}</span>
+									{%endifequal%}
+									
+									{%ifequal success 0 %}
+										<img src="{{MEDIA_URL}}/images/icon_fail.gif" />
+										<span style="color:red; font-size:12px;">{{msg}}</span>	
+									{%endifequal%}
+							
+									</td>
+							  </tr>
+							{%for field in form %}
+							<tr>
+								<div class="fieldWrapper">
+								   {% if field.errors %} <tr colspan="2"><td>{{field.errors}}</td></tr> {% endif %}
+        							<td>{{ field.label_tag }}:</td>
+								 <td>
+									{{ field }}
+								</td>
+        							</div>
+							</tr>
+							{%endfor%}
+							<tr>
+							<td><input type="submit" value="Submit" /></td>
+							</tr>							
+							</table>						
+						</form>
+					</span>		
+				</div>					
+							
+		</div>	
+
+		<div id="other">
+			<span class="heading"><span class="heading_in">Other options</span></span>
+				<div class="content_in">
+					<span class="content_in_span">
+						<ul>
+						<li><a href="/users/change_password/">Change Password</a></li><br />
+						<li><a href="/users/delete_account/"><span style="color:red;">Delete account</span></a></li><br />
+												
+						<li><span style="color:red;">Delete phone number</span></a> from our database by blanking out the same on the left hand side. Phone number is not mandatory.</li><br />
+							{%ifequal form.cleaned_data.subscribe 1%} 
+								<li>You <strong>have</strong> subscribed to EDC newsletter. Uncheck the subscription box on the left side and submit to unsubscribe</li>
+							{%else%}
+								<li>You <strong>have not</strong> subscribed to EDC newsletter. Check the subscription box on the left side and submit to subscribe. We hate spam ourselves!</li>
+							{%endifequal%}
+						</ul>
+					</span>
+				</div>		
+		</div>
+				
+	</div>
+{% endblock %}
+

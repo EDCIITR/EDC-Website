@@ -1,0 +1,7 @@
+{{ object.name }}
+{{ object.email }}
+{{ object.phone }}
+{{ object.year }}
+{{ object.get_branch_display }}
+{{ object.intro }}
+

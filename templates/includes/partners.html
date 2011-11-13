@@ -1,0 +1,34 @@
+{% if sponsors %}
+
+<link rel="stylesheet" type="text/css" href="{{MEDIA_URL}}/css/image_rotator.css" />
+{%if sponsors|length > 1 %}
+<script type="text/javascript" src="{{MEDIA_URL}}/js/jquery.js"></script>
+<script type="text/javascript" src="{{MEDIA_URL}}/js/image_rotator.js"></script>
+{%endif%}
+	
+			
+<div class="outer" style="width:320px;float:right; ">
+	<span class="heading"><span class="heading_in">Partners</span></span>		
+		<div class="content_in">	
+		<span class="content_in_span">
+		<div class="rotator">
+				<ul>			
+				 {%for sponsor in sponsors %}
+					<li> 
+					<a target="_blank" href="{{sponsor.link}}">
+						<img src="{{MEDIA_URL}}/{{sponsor.pic}}" alt="{{sponsor.name}}" />
+							<div class="desc">
+						    	   	<span>
+									<a name="{{sponsor.name}}"><strong>{{sponsor.name}},</strong></a><br/>
+										{{sponsor.title}}
+								</span>
+								</div>
+								</a>			
+							</li>			
+						{%endfor%}	
+				</ul>
+			</div>
+		</div>
+	</span>	
+</div><br />
+{%endif%}

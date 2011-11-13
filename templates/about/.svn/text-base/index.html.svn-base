@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block sheets %}
+<link rel="stylesheet" type="text/css" href="{{MEDIA_URL}}/css/about.css" />
+{% endblock %}
+{% block title %}EDC | About EDC {% endblock %}
+
+<!--menu block-->
+{% block menu %}
+{% include "includes/menu.html" %}
+{% endblock %}
+
+
+{%block facebook%}
+<iframe id="fb" src="http://www.facebook.com/plugins/like.php?href=http%3A%2F%2Fwww.facebook.com%2Fpages%2FEDC-IITR%2F265096099170&amp;layout=standard&amp;show_faces=false&amp;width=300&amp;action=like&amp;font=arial&amp;colorscheme=light&amp;height=80" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
+{%endblock%}
+
+<!--content block-->
+{% block content %}
+	<div id="main_img"><img src="{{MEDIA_URL}}/images/home/home.jpg" /></div>
+
+	<div id="content">
+		<div class="outer" style="width:340px;margin:0px;">
+			<span class="heading"><span class="heading_in">About EDC</span></span>
+			<div id="about_edc_in" class="content_in" style="border:0;">
+				<span class="content_in_span">The Entrepreneurship Development Cell of IIT-Roorkee, commonly known as EDC, has been established with the objective of creating, fostering and promoting the spirit of entrepreneurship among the youth of the nation.<br /><br />Created in the early months of 2006, the cell has already taken rapid strides in cultivating entrepreneurial temper and has succeeded in carving a niche for itself.</span>
+			</div>
+		</div>	
+
+		<div class="outer" style="width:320px;">
+			<span class="heading"><span class="heading_in">Our Vision</span></span>
+			<div id="about_vision_in" class="content_in" style="border:0;">
+				<span class="content_in_span">EDC aims at developing the spirit of entrepreneurship among the students of IIT Roorkee. It wants not only to ignite the minds but also to nurture the ideas of one of the most talented students of India. EDC is committed to
+build a strong platform for the budding entrepreneurs. The vision is to guide the students to take entrepreneurship as a career, as a path to success, as a journey of wisdom.</span>
+			</div>
+		</div>	
+	
+		<div class="outer" style="width:300px;">
+				<span class="heading"><span class="heading_in">Team</span></span>
+				<div id="about_team_in" class="content_in" style="border:0;">
+					<span class="content_in_span">Pleased to meet you. Hope you guessed my name. Meet us <a style="text-decoration:underline;" href="/about/team/">here</a>. 
+					</span>
+				</div>
+		</div>
+	</div>	
+{% endblock %}
+

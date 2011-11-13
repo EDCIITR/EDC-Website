@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block sheets %}
+<link rel="stylesheet" type="text/css" href="{{MEDIA_URL}}/css/events.css" />
+<link rel="stylesheet" type="text/css" href="{{MEDIA_URL}}/css/forms.css" /> 
+<script src="{{MEDIA_URL}}/ckeditor/ckeditor/ckeditor.js"></script>
+
+{% endblock %}
+{% block title %} {{event.get_title}} {%endblock %}
+
+<!--menu block-->
+{% block menu %}
+{% include "includes/events_menu.html" %}
+{% endblock %}
+
+{%block facebook%}
+{%endblock%}
+
+<!--content block-->
+{% block content %}
+	<div id="main_img">
+		{%if event.banner %}
+			<img src="{{MEDIA_URL}}/{{event.banner}}" />
+		{% else %}	
+			<img src="{{MEDIA_URL}}/images/home/home.jpg" />
+		{%endif%}		
+	</div>
+
+	<div id="content">
+		<div class="outer" style="margin:0;width:1000px;"><span class="heading"><span class="heading_in">Participate</span></span>
+			<div class="content_in">
+				<span class="content_in_span"><img src="{{MEDIA_URL}}/images/icon_fail.gif" />
+					{%ifequal state 0%}
+						Online participation has not started yet. It is scheduled to start on <strong>{{event.date_participation_starts|date:'j M Y' }} at {{event.date_participation_starts|date:'P'}}</strong> 
+					{%else%}
+						Online participation ended on <strong>{{event.date_participation_ends|date:'j M Y' }}</strong> 
+					{%endifequal%}
+				</span>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+

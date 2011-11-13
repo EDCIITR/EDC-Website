@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block sheets %}<link rel="stylesheet" type="text/css" href="{{MEDIA_URL}}/css/forms.css" /> {% endblock %}
+{% block title %}EDC | Register {% endblock %}
+
+<!--menu block-->
+{% block menu %}
+{% include "includes/menu.html" %}
+{% endblock %}
+
+<!--content block-->
+{% block content %}
+	<div id="main_img"><img src="{{MEDIA_URL}}/images/home/home.jpg" /></div>
+	
+	<div id="content">
+		<div id="register" style="width:600px;">		
+			<span class="heading"><span class="heading_in">Register</span></span>
+				<div id="register_in" class="content_in">
+					<span class="content_in_span">	
+
+						<form action="#" method="POST">{% csrf_token %}
+							<table>			
+							 <tr colspan="2"><td>{{form.non_field_errors}}
+									{%if cust_errors%}
+										<ul class="errorlist">
+											{%for err in cust_errors %}
+												<li>{{err}}</li>
+											{%endfor%}
+										</ul>
+									{%endif%}
+									</td>
+							  </tr>
+							{%for field in form %}
+							<tr>
+							<div class="fieldWrapper">
+								   {% if field.errors %} <tr colspan="2"><td>{{field.errors}}</td></tr> {% endif %}
+        							<td>{{ field.label_tag }}:</td>
+								 <td>
+									{{ field }}
+								</td>
+        							</div>
+							</tr>
+							{%endfor%}
+							<tr>
+							<td><input type="submit" value="Submit" /></td>
+							</tr>							
+							</table>						
+						</form>
+					</span>		
+				</div>		
+		</div>			
+	</div>
+{% endblock %}
+

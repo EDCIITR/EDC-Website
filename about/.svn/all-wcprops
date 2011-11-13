@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/svn/vikeshkhanna_edciitroorkee/!svn/ver/1/about
+END
+admin.py
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/vikeshkhanna_edciitroorkee/!svn/ver/1/about/admin.py
+END
+views.py
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/vikeshkhanna_edciitroorkee/!svn/ver/1/about/views.py
+END
+__init__.py
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/vikeshkhanna_edciitroorkee/!svn/ver/1/about/__init__.py
+END
+tests.py
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/vikeshkhanna_edciitroorkee/!svn/ver/1/about/tests.py
+END
+models.py
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/vikeshkhanna_edciitroorkee/!svn/ver/1/about/models.py
+END
+urls.py
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/vikeshkhanna_edciitroorkee/!svn/ver/1/about/urls.py
+END

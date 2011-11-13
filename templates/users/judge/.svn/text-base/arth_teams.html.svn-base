@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% block sheets %}<link rel="stylesheet" type="text/css" href="{{MEDIA_URL}}/css/judges.css" /> {% endblock %}
+{% block title %}EDC | Judge Homepage {% endblock %}
+
+<!--menu block-->
+{% block menu %}
+{% include "includes/menu.html" %}
+{% endblock %}
+
+<!--content block-->
+{% block content %}
+	<div id="main_img"><img src="{{MEDIA_URL}}/images/home/home.jpg" /></div>
+	
+	<div id="content">
+		<div class="outer" style="width:1000px;margin:0;">		
+				<div class="content_in" style="border:0;">
+				<span class="content_in_span"> <a style="color:blue;" href='/users/judge/'>Back to event list</a><br />
+					
+				{%if not teams %}
+				You have not been assigned any teams yet. Please wait, you will be informed appropriately. 
+				{%else%}
+				<table cellpadding="10" class="arth_tab_main" >
+					<tr class="arth_tab_heading">
+						<td class="arth_tab_intro" style="text-align:center;">B Plan Introduction</td>
+						<td class="arth_tab_scores">Scores</td>
+						<td class="arth_tab_total" style="font-size:inherit;">Total</td>
+						<td class="arth_tab_comments">Comments</td>
+					</tr>
+					{%for team in teams%}
+					
+					<tr class="arth_tab_content">
+						<td valign="top" class="arth_tab_intro">
+							{%autoescape off%}
+								<a href="{{request.path}}{{team.id}}">{{team.name}}</a> - 
+							{%if team.is_judged%}
+							<img src="{{MEDIA_URL}}/images/icon_success.gif" /> <i style="color:green;">You have judged once</i>	
+							{%else%}
+							<img src="{{MEDIA_URL}}/images/icon_fail.gif" /> <i style="color:red;">Undjudged</i>
+							{%endif%}
+
+								{{team.get_data.intro|truncatewords:100}}
+							{%endautoescape%}
+						</td>
+
+						<td class="arth_tab_scores">
+								<p><strong>Idea: </strong>{{team.get_data.score_overview}}</p>
+								<p><strong>Products: </strong>{{team.get_data.score_product}}</p>
+								<p><strong>Marketing: </strong>{{team.get_data.score_market}}</p>
+								<p><strong>Management: </strong>{{team.get_data.score_management}}</p>
+								<p><strong>Financials: </strong>{{team.get_data.score_financials}}</p>
+								<p><strong>Viability: </strong>{{team.get_data.score_viability}}</p>
+								<p><strong>Offering: </strong>{{team.get_data.score_offering}}</p>
+						</td>
+		
+						<td class="arth_tab_total">
+								{{team.get_score}}
+						</td>
+
+						<td class="arth_tab_comments">
+								{%if team.get_data.comment%}
+									{{team.get_data.comment}}
+								{%else%}
+									<i>You haven't commented on this plan.</i>
+								{%endif%}
+						</td>
+					</tr>
+					{%endfor%}
+				</table>		
+				{%endif%}
+				</span>
+			
+				</div>
+		</div>
+	</div>
+{% endblock %}
+

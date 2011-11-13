@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block sheets %}<link rel="stylesheet" type="text/css" href="{{MEDIA_URL}}/css/homepage.css" /> {% endblock %}
+{% block title %} {{event.get_title}} {%endblock %}
+
+<!--menu block-->
+{% block menu %}
+{% include "includes/events_menu.html" %}
+{% endblock %}
+
+{%block facebook%}
+{%endblock%}
+
+<!--content block-->
+{% block content %}
+	<div id="main_img">
+		{%if event.banner %}
+			<img src="{{MEDIA_URL}}/{{event.banner}}" />
+		{% else %}	
+			<img src="{{MEDIA_URL}}/images/home/home.jpg" />
+		{%endif%}		
+	</div>
+	
+	<div id="content">
+		<div class="outer" style="margin:0px; width:{%if event.has_contacts%}660px{%else%}1000px{%endif%};">
+			<span class="heading"><span class="heading_in">FAQ</span></span>
+			<div class="content_in">
+				<span class="content_in_span">	
+				<ol>
+				{%autoescape off%}
+					{%for Q in faq%}
+						<li><strong>{{Q.question}}</strong><br />
+						{{Q.answer}}
+						{%if not forloop.last%}<br /><br />{%endif%}
+						</li>
+					{%endfor%}
+				{%endautoescape%}
+				</ol>			
+				</span>
+			</div>
+		</div>
+
+		<div style="float:right">
+			{%include "includes/contacts.html" %}
+		</div>
+	</div>
+{% endblock %}
+

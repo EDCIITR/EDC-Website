@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% block sheets %}<link rel="stylesheet" type="text/css" href="{{MEDIA_URL}}/css/forms.css" /> {% endblock %}
+{% block title %}EDC | Login {% endblock %}
+
+<!--menu block-->
+{% block menu %}
+{% include "includes/menu.html" %}
+{% endblock %}
+
+<!--content block-->
+{% block content %}
+	<div id="main_img"><img src="{{MEDIA_URL}}/images/home/home.jpg" /></div>
+	
+	<div id="content">
+		<div id="login">		
+			<span class="heading"><span class="heading_in">Login</span></span>
+				<div id="login_in" class="content_in">
+					<span class="content_in_span">	
+						{%if not request.session.session_id %}
+						<form action="#" method="POST">{% csrf_token %}
+							<table>			
+							 <tr colspan="2"><td>{{form.non_field_errors}}
+									{%if msg%}
+										<ul class="errorlist">
+												<li>{{msg}}</li>
+										</ul>
+									{%endif%}
+									</td>
+							  </tr>
+							{%for field in form %}
+							<tr>
+								<div class="fieldWrapper">
+								   {% if field.errors %} <tr colspan="2"><td>{{field.errors}}</td></tr> {% endif %}
+        							<td>{{ field.label_tag }}:</td>
+								 <td>
+									{{ field }}
+								</td>
+        							</div>
+							</tr>
+							{%endfor%}
+							<tr>
+							<td><input type="submit" value="Submit" /></td><td><input type="reset" value="Reset" /></td>
+							</tr>							
+							</table>						
+						</form>
+					{%else%}	
+					You are already logged in as <strong>{{request.session.name}}</strong>. Do you want to <a href="/users/logout/">Logout</a> or <a href="/users/edit">Edit Profile</a>?
+
+					{%endif%}
+					</span>		
+				</div>		
+		</div>		
+	
+		{%if not request.session.session_id %}	
+		<div class="outer" style="width:500px;" >	
+			<span class="heading"><span class="heading_in">Why am I here?</span></span>
+				<div id="login_in" class="content_in">
+					<span class="content_in_span">
+					{%if request.GET.restricted%}<img src="{{MEDIA_URL}}/images/icon_fail.gif" /> <span style="color:red">The page at <strong>{{request.GET.next}}</strong> requires a login. </span><hr class="content_ruler"/>{%endif%}
+					Haven't signed up yet? <strong><a href="/users/register">Register</a></strong> here. <br /><br />Did you <a style="color:blue;" href="/users/forgot_password/">Forget your password?</a>
+					</span>
+				</div>
+		</div>	
+		{%endif%}
+	
+	</div>
+{% endblock %}
+

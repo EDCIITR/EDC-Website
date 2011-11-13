@@ -1,0 +1,38 @@
+.resources a
+{
+	float:left;	
+	color:black;
+	font-weight:bold;
+	display:block;	
+	width:200px;
+	height:100px;
+	padding:120px 60px 50px 60px;
+	background-color:#e6e6e6;
+	margin-left:10px;
+}
+
+.resources a:hover
+{
+	background-color:#ffcc00;
+	text-decoration:none;
+}
+
+.resources span
+{
+	font-size:12px;
+	font-weight:normal;
+	display:block;
+	margin-top:5px;
+	width:200px;
+	text-align:center;
+}
+
+#mentor_details
+{
+	display:block;	
+}
+
+#mentor_details ul
+{
+	margin-left:100px;	
+}

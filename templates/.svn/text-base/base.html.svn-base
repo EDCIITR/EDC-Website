@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" type="text/css" href="{{MEDIA_URL}}/css/main.css" />
+    {%block sheets %} {% endblock %}    
+    <title>{% block title %}{% endblock %}</title>
+</head>
+<body>
+   <div id="wrapper">  
+
+		<!--starts header-->   	
+		<div id="header">
+			<a href="/"><img src="{{MEDIA_URL}}/images/logo.jpg" /></a>
+			{%block facebook%} {%endblock%}
+			<span>
+				<a href="#">Subscribe</a> | 
+				<a href="/feedback">Feedback</a> |
+				<a target="_blank" href="http://www.edciitroorkee.wordpress.com">Blog</a> | 
+				<a href="/contact">Contact</a>
+			
+			<br/>
+				<span class="session">
+				{%if not request.session.session_id%} 
+					<a href="/users/login?next={{request.path}}">Login</a> | <a href="/users/register">Register</a>				
+				{%else%}
+					Welcome <strong>{{request.session.name}}</strong>. <a href="/users/logout/?next={{request.path}}">Logout</a> | <a href="/users/edit">Edit Profile</a> {%ifequal request.session.category 'JUDGE' %}| <a href="/users/judge/">Judge Homepage</a>{%endifequal%}
+				{%endif%}
+				
+						
+				</span>
+			</span> 
+		</div>
+		<!--ends header-->
+
+		    {% block menu %}{% endblock %}  
+		    {% block content %}{% endblock %}
+
+
+		<!--starts footer-->
+	    	<div id="footer">
+			<hr />
+			<span style="float:left; padding-top:4px;">Copyright &copy 2010 Entrepreneurship Development Cell, IIT Roorkee</span>
+					<span style="float:right">
+					<a target="_blank" href="http://www.facebook.com/pages/Roorkee-India/EDC-IITR/265096099170/"><img src="{{MEDIA_URL}}/images/fb.png" /></a>
+						<a target="_blank" href=""><img src="{{MEDIA_URL}}/images/twitter.jpg" /></a>
+					</span>
+		 </div>
+		 <!--ends footer-->
+    </div>	
+</body>
+</html>
+

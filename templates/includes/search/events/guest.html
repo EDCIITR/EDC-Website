@@ -1,0 +1,20 @@
+<div id="result_link">
+	           <a href="{{ result.object.get_absolute_url }}">Guests - {%highlight result.object.name with request.GET.q%}</a>
+		   <span class="result_span">
+			<table>
+		<tr><td style="width:75px;"><img src="{{MEDIA_URL}}/{%if result.object.pic%}{{result.object.pic}}{%else%}default.jpg{%endif%}" width="75" height="75" /></td>
+			<td>
+			{%if result.object.name%}{%highlight result.object.name with request.GET.q%}<br />{%endif%}
+         		{%if result.object.designation%}{%highlight result.object.designation with request.GET.q%},&nbsp;{%endif%}
+			 {%if result.object.organisation%}{%highlight result.object.organisation with request.GET.q %}<br />{%endif%}
+			 {%if result.object.get_event%}{%highlight result.object.name with request.GET.q%} {%if result.object.get_event.is_valid%}is{%else%}was{%endif%} a {{result.object.get_category_display}} for {{result.object.get_event.name}}<br />{%endif%}
+			</td>
+		</tr>		
+		<tr>
+		 <td colspan="2" class="result_summary">{%if result.object.details%} {%highlight result.object.details with request.GET.q [max_length 100]%} {%endif%}</td>
+	
+		
+		</td>
+		</table>
+	</span>
+</div>

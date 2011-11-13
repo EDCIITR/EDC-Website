@@ -1,0 +1,60 @@
+<style type="text/css">
+.table_event_date
+{
+	text-align:center;
+	color:white;
+	
+}
+
+.table_event_date tr
+{
+	padding:10px;	
+	background-color:grey;
+}
+
+.table_event_date td
+{
+	padding:12px;
+	width:75px;	
+	height:100%;
+}
+
+</style>
+<!--<div style="visibility:hidden;">
+				{%if result.object.is_valid%}
+					<strong><span style="color:green;">Event scheduled {{result.object.date_event|timeuntil}}</span></strong>
+				{%else%}
+
+				{%endif%}
+</div>-->
+
+<div id="result_link">
+	           <a href="{{ result.object.get_absolute_url }}">Events -{%highlight result.object.name with request.GET.q%}</a>
+		   <span class="result_span">
+			<table cellspacing="5" style="margin-left:-5px;">
+		<tr>
+			<td valign="top" style="width:256px;">
+			<img style="padding:0;" src="{{MEDIA_URL}}/{%if result.object.banner%}{{result.object.banner}}{%else%}default_banner.jpg{%endif%}" width="256px"   />
+			</td>
+		
+			<td valign="top">
+				<table class="table_event_date">
+					<tr style="{%if result.object.is_valid%}background-color:#3EA100;{%else%}background-color:#BD0000;{%endif%}">
+						<td >{{result.object.date_event|date:"F j"}}</td>
+					</tr>
+			
+					<tr>
+						<td>{{result.object.date_event|date:"Y"}}</td>
+					</tr>
+							
+				</table>				
+			</td>
+		</tr>		
+
+		<tr >
+			<td class="result_summary" colspan="3">{%if result.object.intro%} {%highlight result.object.intro with request.GET.q [max_length 200]%} {%endif%}</td>
+		</tr>
+		</table>
+	</span>
+	 
+</div>

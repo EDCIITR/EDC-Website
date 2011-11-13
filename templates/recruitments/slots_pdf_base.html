@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en-US" xml:lang="en-US" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>EDC, IITR Recruitment {{setup}}</title>
+
+<style type="text/css" media="all">
+body{
+	text-align:center;
+	font-family:Arial;
+	background-color:grey;
+	margin:0px;
+	font-size:10px;	
+}
+
+div
+{
+	float:left;
+	display:block;
+}
+
+table
+{
+	text-align:left;
+	border-width:2px; 
+	border-style:solid;
+	border-color:black;
+	
+}
+
+
+#wrapper
+{
+	margin-left:10%;
+	background-color:white;
+	width:1000px;
+	padding:10px;
+	overflow:auto;
+}
+
+img {zoom:80%}
+
+
+</style>
+
+
+</head>
+
+<body>
+	<div id="wrapper">
+	<h2>Entrepreneurship Development Cell, IIT Roorkee<br /> Recruitment ({{setup}})</h2>	
+		<table cellspacing="10">
+		{% for slot in slots %}
+			<tr><td colspan="4"><span style="font-weight:bold;font-size:16px;">Slot # {{forloop.counter}} </span></td></tr>
+			{%for c in slot%}
+				<tr>
+					<td>{{c.name}}</td>
+					<td>{{c.email}}</td>
+					<td>{{c.phone}}</td>
+					<td>{{c.branch}}</td>
+				</tr>
+			{%endfor%}
+		{% endfor %}
+		</table>
+	</div>
+</body>
+</html>

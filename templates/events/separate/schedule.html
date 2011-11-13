@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block sheets %}<link rel="stylesheet" type="text/css" href="{{MEDIA_URL}}/css/homepage.css" /> {% endblock %}
+{% block title %}EDC | {{event.get_title}} {% endblock %}
+
+<!--menu block-->
+{% block menu %}
+<style type="text/css">
+.div_guest
+{
+	float:left; 
+	margin: 10px 5px 0px 5px;
+	width:200px;
+	text-align:left;
+	height:225px;	
+}
+
+
+</style>
+{% include "includes/events_menu.html" %}
+{% endblock %}
+
+{%block facebook%}
+{%endblock%}
+
+<!--content block-->
+{% block content %}
+	<div id="main_img">
+		<div id="main_img"><img src="{{MEDIA_URL}}/{%if event.banner %}{{event.banner}}{%else%}/images/home/home.jpg{%endif%}" /></div>
+			
+	</div>
+	
+	<div id="content">
+		<div class ="outer" style="width:1000px;margin:0px;">
+			<span class="heading"><span class="heading_in">Schedule</span></span>
+			<div class="content_in">
+			<span class="content_in_span">
+			{%autoescape off%}
+				{%if event.schedule %}
+					{{event.schedule}}
+				{%endif%}
+			{%endautoescape%}		
+			</span>	
+			</div>
+		</div>
+	</div>
+{% endblock %}
+

@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block sheets %}<link rel="stylesheet" type="text/css" href="{{MEDIA_URL}}/css/resources.css" /> {% endblock %}
+{% block title %}EDC | Homepage {% endblock %}
+
+<!--menu block-->
+{% block menu %}
+{% include "includes/menu.html" %}
+{% endblock %}
+
+{%block facebook%}
+<iframe id="fb" src="http://www.facebook.com/plugins/like.php?href=http%3A%2F%2Fwww.facebook.com%2Fpages%2FEDC-IITR%2F265096099170&amp;layout=standard&amp;show_faces=false&amp;width=300&amp;action=like&amp;font=arial&amp;colorscheme=light&amp;height=80" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
+{%endblock%}
+
+<!--content block-->
+{% block content %}
+	<div id="main_img"><img src="{{MEDIA_URL}}/images/home/home.jpg" /></div>
+	
+	<div id="content" style="height:280px;" class="resources">
+					<a href="/resources/mentors/">Mentor Pool<span>Mentor database</span></a>
+					<a href="/resources/knowledge/">Knowledge Center<span>Links, docs, files etc. </span></a>
+					<a href="#">Rendezvous<span>Contact or meet us</span></a>
+	</div>
+{% endblock %}
+

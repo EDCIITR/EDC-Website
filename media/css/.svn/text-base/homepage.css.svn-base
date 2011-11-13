@@ -1,0 +1,71 @@
+.annotation
+{
+color:red;font-size:10px;
+}
+
+/*Date classes*/
+.date_day
+{
+	display:block;
+	background-color:#414141;
+	color:white;	
+	padding:4px 4px 4px 4px;
+	width:100%;
+	
+}
+
+.date_date
+{
+	display:block;	
+	background-color:#e6e6e6;
+	padding:4px 4px 4px 4px;
+	width:100%;
+}
+
+
+
+/* Updates */
+#updates
+{	
+	float:left;
+	width:314px;
+	height:100%;
+}
+
+#updates_content
+{
+	display:block;
+}
+
+#updates_content ul
+{
+	margin: 5px;
+	padding:0px;
+}
+
+#updates_content li
+{	
+	margin:8px;
+}
+
+
+/*Events */
+#edc_events
+{
+	float:left;
+	margin-left:10px;
+	width:350px;
+	height:100%;
+}
+
+#edc_events_content
+{
+	
+}
+
+#partners_content
+{}
+
+
+
+

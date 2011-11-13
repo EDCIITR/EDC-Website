@@ -1,0 +1,89 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en-US" xml:lang="en-US" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>EDC, IITR Recruitment {{candidate.setup}}</title>
+
+<style type="text/css" media="all">
+body{
+	text-align:center;
+	font-family:Arial;
+	background-color:grey;
+	margin:0px;
+	font-size:10px;	
+}
+
+div
+{
+	float:left;
+	display:block;
+}
+
+table
+{
+	text-align:left;
+	border-width:2px; 
+	border-style:solid;
+	border-color:black;
+	
+}
+
+
+#wrapper
+{
+	margin-left:10%;
+	background-color:white;
+	width:1000px;
+	padding:10px;
+	overflow:auto;
+}
+
+img {zoom:80%}
+
+
+</style>
+
+
+</head>
+
+<body>
+	<div id="wrapper">
+	<h2>Entrepreneurship Development Cell, IIT Roorkee<br /> Recruitment ({{candidate.setup}})</h2>	
+	
+	
+	<table style="border:none;">
+	<tr>
+	<td valign="top">
+	<table  cellpadding="5" cellspacing="5">
+		<tr>
+			<td width="150" style="font-weight:bold;" width="">Name</td><td width="350">{{candidate.name}}</td>
+			<td width="300" rowspan="4"><img width="250px" height="275px" src="{{MEDIA_URL}}/{{candidate.pic}}" /></td>
+		</tr>
+		
+		<tr>
+			<td style="font-weight:bold;">Branch</td><td>{{candidate.get_branch_display}}</td>
+		</tr>		
+	
+		<tr>
+			<td style="font-weight:bold;">Email</td><td>{{candidate.email}}</td>
+		</tr>
+	
+		<tr>
+			<td style="font-weight:bold;">Phone</td><td>{{candidate.phone}}</td>
+		</tr>
+	</table>
+	</td>
+	
+	</tr>
+	
+	<tr><td>
+		<table width="540" cellpadding="5" cellspacing="5">
+		<tr><td><strong>Why do you want to join EDC</strong><br/> {{candidate.why_edc}}</td></tr>
+		<tr><td><strong>What other activities are you a part of?</strong><br />{{candidate.other_groups}}</td></tr>
+		<tr><td><strong>Strengths/Skills</strong><br />{{candidate.skills}}</td></tr>
+		</table>
+	</td></tr>
+
+	</div>
+
+</body>
+</html>

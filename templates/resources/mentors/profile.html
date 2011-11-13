@@ -1,0 +1,144 @@
+{% extends "base.html" %}
+{% block sheets %}<link rel="stylesheet" type="text/css" href="{{MEDIA_URL}}/css/resources.css" /> {% endblock %}
+{% block title %}EDC | Mentors {% endblock %}
+
+<!--menu block-->
+{% block menu %}
+{% include "includes/menu.html" %}
+{% endblock %}
+
+<!--content block-->
+{% block content %}
+	<div id="main_img"><img src="{{MEDIA_URL}}/images/home/home.jpg" /></div>
+	
+	<div id="content" >
+		<div class="outer" style="margin-left:0px; width:700px; ">			
+		<span class="heading"><span class="heading_in">{{mentor.name}}</span></span>
+			<span class="content_in" style="border:0;">
+				<span class="content_in_span">	
+					<table style="font-size:13px;">
+						<tr>
+							<td valign="top" width="250"> 
+								{%if mentor.pic %}
+									<img width="250" height="300" src="{{MEDIA_URL}}/{{mentor.pic}}" />
+								{%else%}
+									<img width="250" height="300" src="{{MEDIA_URL}}/default.jpg" />
+								{%endif%} <br />
+
+								{%if mentor.linked_in_public%}
+									{%if mentor.linked_in%}
+									<a href="{{mentor.linked_in}}" target="_blank" class="glow"><img src="{{MEDIA_URL}}/images/linkedin.jpg" /></a><br />
+									{%endif%}								
+								{%endif%}
+								
+								{%if mentor.email_public %}
+									Email: <a href="mailto:{{mentor.email}}">{{mentor.email}}</a>
+								{%else%}	
+									<i>(email held for privacy)</i>
+								{%endif%}<br />
+
+								{%if mentor.phone_public %}
+								      {%if mentor.phone%}
+										Phone: {{mentor.phone}}<br />
+								      {%endif%}
+								{%else%}	
+									<i>(phone number held for privacy)</i><br />
+								{%endif%}
+
+		
+							</td>
+							
+							<td valign="top" rowspan="2">
+							<div>	
+								<div style="width:2px; background-color:#e6e6e6;float:left;height:400px;">&nbsp;</div>
+								<div style="margin-left:10px;">	
+									<ul>
+										<li><strong>About: </strong><br />{{mentor.about}}</li><br />
+										<li><strong>Interests:</strong><br />{{mentor.interests}}</li><br />
+									</ul>
+									<hr class="content_ruler" />
+
+									{%if mentor.email_public%}
+										Mentor's Email ID is public. Please use a mail service to Email the mentor directly. 
+									{%else%}
+										{%if hours >  48%}		
+										Mentor has held his Email ID for privacy. You may send a message including your idea and the kind of support you are looking for: 								
+								<form action="#" method="POST">	{% csrf_token %}
+										<table>			
+										 <tr colspan="2"><td>{{form.non_field_errors}}
+												{%if msg%}
+													<ul class="errorlist">
+														<li>{{msg}}</li>
+													</ul>
+												{%endif%}
+												</td>
+										  </tr>
+										{%for field in form %}
+										<tr>
+											<div class="fieldWrapper">
+											   {% if field.errors %} <tr colspan="2"><td>{{field.errors}}</td></tr> {% endif %}
+											<td>{{ field.label_tag }}:</td>
+											 <td>
+												{{ field }}
+											</td>
+											</div>
+										</tr>
+										{%endfor%}
+										<tr>
+										<td><input type="submit" value="Submit" /></td>
+										</tr>							
+										</table>
+										</form>	
+										{%else %}	<!--hours<48-->
+											{%if msg%}	
+												{{msg}}
+											{%else%}
+												You have mailed the mentor recently. Please wait. 
+											 {%endif%}
+										{%endif%}
+						
+									{%endif%}
+								</div>
+							</div>
+							</td>
+						</tr>
+					</table>
+							
+				</span>
+				</span>	
+		<a href="/resources/mentors/">&lt;&lt; Back to mentor profiles</a>
+		</div>
+	
+		<div id="other" class="outer" style="width:280px;">
+			<span class="heading"><span class="heading_in">Guidelines</span></span>
+				<span class="content_in" style="border:0;">
+					<span class="content_in_span">
+					{% if not mentor.email_public %}
+			
+						{% if date_last_sent %}
+							It has been <strong>{{date_last_sent|timesince}}</strong> since you last mailed this mentor. 
+						{% else %}
+							You have never mailed this mentor.			
+						{% endif%}
+					<span class="content_in_span">
+						{% if hours > 48 %}
+						<img src="{{MEDIA_URL}}/images/icon_success.gif" /><span style="color:green;"> You can send a message to the mentor				</span>
+						{% else %}
+						<img src="{{MEDIA_URL}}/images/icon_fail.gif" /><span style="color:red;">You cannot mail {{mentor.name}} for another {{time_left}} hours </span>
+						{%endif%}
+					{%endif%}	
+					</span>
+				
+					<ol style="margin:10px 0px 0px 0px;">
+						<li>You cannot message the same mentor twice in a period of 48 hours through this portal.</li><br />
+						<li>This portal is intended to provide a meeting ground for potential ideas and capable mentors. Please do not use this as a mail service. Use this portal only for the initiating messages. If the mentor is interested in your idea, he should respond directly to your Email ID (which will be sent to him automatically through the system).</li><br />
+	
+						<li>Inappropriate messages to the mentor shall lead to your blocking from the EDC portal. The mentor and team EDC reserve the right to block any user id or litigate a user for unapproved behaviour. </li><br />
+						
+				
+					</ol>
+				</span>
+		</div>	
+	</div>
+{% endblock %}
+

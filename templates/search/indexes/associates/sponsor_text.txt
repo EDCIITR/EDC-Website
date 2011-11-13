@@ -1,0 +1,5 @@
+{{ object.name }}
+{{ object.title }}
+{{ object.link }}
+{{ object.details }}
+

@@ -1,0 +1,132 @@
+{% extends "base.html" %}
+{% block sheets %}
+<link rel="stylesheet" type="text/css" href="{{MEDIA_URL}}/css/events.css" />
+<link rel="stylesheet" type="text/css" href="{{MEDIA_URL}}/css/forms.css" /> 
+{% endblock %}
+{% block title %} {{event.get_title}} {%endblock %}
+
+<!--menu block-->
+{% block menu %}
+{% include "includes/events_menu.html" %}
+{% endblock %}
+
+{%block facebook%}
+{%endblock%}
+
+<!--content block-->
+{% block content %}
+	<div id="main_img">
+		{%if event.banner %}
+			<img src="{{MEDIA_URL}}/{{event.banner}}" />
+		{% else %}	
+			<img src="{{MEDIA_URL}}/images/home/home.jpg" />
+		{%endif%}		
+	</div>
+
+	<div id="content">
+		<div class="outer" style="margin:0; width:600px;">
+			<div class="content_in" style="border:0;">
+			{%ifequal state 2%}<span class="heading"><span class="heading_in">Already Registered</span></span>
+			<span class="content_in_span">
+				You have already been registered as a member of the following team:
+				<table cellspacing="10">
+					<tr>
+						<td><strong>Team Name</strong></td>
+						<td>{{team.name}}</td>
+					</tr>
+		
+					<tr>
+						<td><strong>Leader</strong></td>
+						<td>{{team.leader.name}}</td>
+					</tr>
+			
+					<tr>
+						<td><strong>Leader's Email Address</strong></td>
+						<td>{{team.leader}}</td>
+					</tr>
+				</table>
+			<span style="color:red;"><img src="{{MEDIA_URL}}/images/icon_fail.gif" /> You can edit/upload your executive summary from the leader's EDC account only. Please login through {{team.leader.name}}'s account. </span>
+			<hr class="content_ruler" />
+			If you are not aware of this registration, please contact:
+			<p>
+				{% for contact in event.coordinator.all%}
+					<strong>{{contact.name}}</strong><br />
+					{%if contact.email%}{{contact.email}}<br />{%endif%}
+					{%if contact.phone%}{{contact.phone}}<br />{%endif%}
+					{%if not forloop.last%}<br /><br />{%endif%}
+				{%endfor%}
+			</p>		
+					
+			</span>		
+			{%else%}	
+				<div id="container">
+					<div id="labelContainer">
+						<div id="label" {%ifequal state 0%}class="active"{%endifequal%}>Team Registration</div>
+						<div id="label" {%ifequal state 1%}class="active"{%endifequal%}>Confirm Team</div>
+					</div>
+					<div id="form">
+							<table cellspacing="10">
+								<tr>
+								<td>Leader: </td>
+								<td>{{user.name}}</td>
+								</tr>
+
+								<tr>
+								<td>Leader's Email: </td>
+								<td>{{request.session.session_id}}</td>
+								</tr>
+
+								<tr>
+								<td>Leader's Organisation: </td>
+								<td>{{user.organisation}}</td>
+								</tr>
+						
+								<tr>
+								<td>Wrong details? <a style="color:blue;" target="_blank" href="/users/edit/"> Edit Profile</a> </td>
+								</tr>
+							
+								 <tr><td colspan="2"><strong style="color:red;">{{form.non_field_errors}}<br />
+									{%if msg%}
+										{{msg}}
+									{%endif%}</strong>
+									</td>
+								  </tr>
+
+								<form action="{{request.path}}?state={%ifequal state 0%}1{%else%}2{%endifequal%}" method="POST">{% csrf_token %}
+								 {%for field in form %}
+								  <tr>
+							        	  <div class="fieldWrapper">
+								   {% if field.errors %} <tr colspan="2"><td>{{field.errors}}</td></tr> {% endif %}
+										<td>{{ field.label_tag }}:</td>
+										 <td>
+											{%ifequal state 0%}
+												{{ field }}
+											{%else%}
+												{{field.value}}
+											{%endifequal%}
+										</td>
+									</div>
+								</tr>
+								 {%endfor%}
+									<tr>
+									<td>
+										{%ifequal state 0%}
+											<input type="submit" value="Submit" />
+										{%else%}
+											{%ifequal state 1%}
+											<a id="label" style="color:blue;" href="{{request.path}}?state=0">Back</a>
+											<a id="label" style="color:blue;" href="{{request.path}}confirm">Confirm</a>
+											{%endifequal%}
+										{%endifequal%}	
+									</td>
+									</tr>	
+								</form>
+							</table>							
+					</div>
+				</div>
+				{%endifequal%}
+			</div>
+		</div>
+	</div><!--content ends-->
+{% endblock %}
+

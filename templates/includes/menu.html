@@ -1,0 +1,13 @@
+<!--Receives a context of the active button on the menu as name-->
+
+<div id="menu">
+	<ul>
+		{% for obj in list %}
+			{% ifequal name obj.name %}
+				<li><a href="#" class="active">{{obj.name}}</a></li>
+			{% else %}
+				<li><a href="{{obj.url}}">{{obj.name}}</a></li>
+			{% endifequal %}
+		{% endfor %}		
+	</ul>
+</div> 

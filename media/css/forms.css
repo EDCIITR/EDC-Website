@@ -1,0 +1,38 @@
+ul.errorlist {
+        margin: 0;
+        padding: 0;
+
+}
+
+.errorlist li {
+        color: red;
+	font-weight:bold;
+        font-size: 10px;
+    }
+
+#login
+{
+	float:left;
+	height:100%;
+	width:450px;
+}
+
+#messages
+{
+	float:left;
+	width:400px;
+	margin-left:20px;
+}
+
+#edit
+{
+	float:left;
+	width:600px;
+}
+
+#other
+{
+	float:left;
+	width:398px;
+	margin-left:20px;
+}

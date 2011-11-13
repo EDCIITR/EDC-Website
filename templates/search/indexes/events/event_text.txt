@@ -1,0 +1,8 @@
+{{ object.name }}
+{{ object.date_event }}
+{{ object.venue }}
+{{ object.intro }}
+{{ object.overview }}
+{{ object.result }}
+{{ object.category }}
+{{ object.coordinator }}

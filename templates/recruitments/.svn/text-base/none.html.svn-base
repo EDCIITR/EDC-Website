@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block sheets %}<link rel="stylesheet" type="text/css" href="{{MEDIA_URL}}/css/forms.css" /> {% endblock %}
+
+{% block title %}EDC | Recruitments {% endblock %}
+
+<!--menu block-->
+{% block menu %}
+{% include "includes/menu.html" %}
+{% endblock %}
+
+<!--content block-->
+{% block content %}
+	<div id="main_img"><img src="{{MEDIA_URL}}/images/home/home.jpg" /></div>
+
+	<div id="content">
+		<div class="outer" style="width:800px;margin:0px;">
+			<span class="heading"><span class="heading_in">EDC Recruitments</span></span>
+			<div id="about_edc_in" class="content_in" style="border:0;">
+				<span class="content_in_span">
+				<img src="{{MEDIA_URL}}/images/icon_fail.gif" /> EDC is not recruiting currently. Stay tuned to the updates and newsletters to know when we are recruiting.    </span>
+			</div>
+		</div>
+	</div>	
+{% endblock %}
+

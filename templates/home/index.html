@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% block sheets %}
+	<link rel="stylesheet" type="text/css" href="{{MEDIA_URL}}/css/homepage.css" />
+{% endblock %}
+
+{% block title %}EDC | Homepage {% endblock %}
+
+<!--menu block-->
+{% block menu %}
+{% include "includes/menu.html" %}
+{% endblock %}
+
+{%block facebook%}
+<iframe id="fb" src="http://www.facebook.com/plugins/like.php?href=http%3A%2F%2Fwww.facebook.com%2Fpages%2FEDC-IITR%2F265096099170&amp;layout=standard&amp;show_faces=false&amp;width=300&amp;action=like&amp;font=arial&amp;colorscheme=light&amp;height=80" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
+{%endblock%}
+
+<!--content block-->
+{% block content %}
+	<div id="main_img"><img src="{{MEDIA_URL}}/images/home/home.jpg" /></div>
+	
+	<div id="content">
+		<div id="updates">
+			<span class="heading"><span class="heading_in">Updates</span></span>
+			<div id="updates_content" class="content_in">
+				<ul>{% for update in updates %}
+					<li>
+					{%if update.link %}						
+						<a target="_blank" href="{{update.link}}">{{update.content}}</a>
+					{% else %}
+						{{update.content}}
+					{% endif %}
+					<span class="annotation">posted {{update.date_sub|timesince}} ago</span>					
+					</li>
+					{%if not forloop.last %}
+						<hr class="content_ruler"/>
+					{%endif %}	
+				    {% endfor %}
+				</ul>	
+			</div>
+		</div>
+
+		<div id="edc_events">
+			<span class="heading"><span class="heading_in">EDC Events</span></span>
+			<div id="edc_events_content" class="content_in">
+				<table style="padding:5px;">
+				{% for event in events %}
+				<tr>
+						<td style="width:60px; text-align:center;">						
+							<span class="date_day">{{event.date_event|date:"D"}}</span>
+							<span class="date_date">{{event.date_event|date:"j M"}}</span>
+						</td>		
+						<td style="padding:15px;">
+								<a target="_blank" href="/events/{{event.get_link}}">{{event.name}}</a>
+							<span class="annotation"> {{event.date_event|date:"D, j M Y"}}</span>
+						</td>
+				</tr>
+					{% if not forloop.last %}
+						<tr><td colspan="2"><hr class="content_ruler"></td></tr>
+					{% endif %}				 
+				{% endfor %}
+				</table>
+			</div>
+		</div>
+
+		{%include "includes/partners.html"%}
+
+	</div>
+
+{% endblock %}
+

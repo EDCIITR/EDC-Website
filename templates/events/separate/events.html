@@ -1,0 +1,219 @@
+{% extends "base.html" %}
+{% block sheets %}
+<!--<link rel="stylesheet" type="text/css" href="{{MEDIA_URL}}/js/floatbox/floatbox.css" />
+<script type="text/javascript" src="{{MEDIA_URL}}/js/floatbox/floatbox.js"></script>-->
+<script src="http://code.jquery.com/jquery-1.5.js"></script>
+
+<script type="text/javascript">
+  fbPageOptions = {
+    shadowType: 'halo',
+    resizeDuration: 5.5,
+    imageFadeDuration: 4.5,
+    overlayFadeDuration: 0,
+    navType: 'both',
+  };
+</script>
+
+
+<style type="text/css">
+.event_box
+{
+	float:left;
+	border-color:green;
+	border-style:solid;
+	border-width:thin;
+	margin:20px 10px 5px 0px;
+	font-size:12px;
+	padding:5px 5px;
+	height:170px;
+	width:220px;
+	text-align:left;
+}
+.table_event_date
+{
+	margin:0px;	
+	text-align:center;
+	color:white;
+	
+}
+
+.table_event_date tr
+{
+	padding:10px;	
+	background-color:#e6e6e6;
+	color:black;
+}
+
+.table_event_date td
+{
+	width:65px;	
+	height:30px;
+}
+
+.div_guest
+{
+	float:left; 
+	margin: 10px 5px 0px 5px;
+	width:200px;
+	text-align:left;
+	height:225px;	
+}
+
+</style>
+
+<script type="text/javascript">
+var cur;
+
+function change_content(str)
+{
+	var obj = document.getElementById("id_button_"+cur);
+	document.getElementById("id_button_"+str).className="active";	
+			
+	if(obj!=null)
+		obj.className=""
+	//fadeout();
+	 $('#div_main_content').fadeOut('slow', function() {
+		document.getElementById("span_main_content").innerHTML=	document.getElementById("id_content_"+str).innerHTML;
+		if(str!='upcoming') 
+			document.getElementById("span_main_content_heading").innerHTML =str + "s";	
+		else
+			document.getElementById("span_main_content_heading").innerHTML ='Upcoming Event - '+ document.getElementById("upcoming_heading").innerHTML;	
+		
+		cur=str;
+        // Animation complete
+      	});
+
+	 $('#div_main_content').fadeIn('slow', function() {
+        // Animation complete
+      	});
+//	alert(cur);	
+	
+}
+
+$(document).ready(function(){
+	change_content("upcoming");
+});
+</script>
+
+{% endblock %}
+{% block title %} {{event.get_title}} {%endblock %}
+
+<!--menu block-->
+{% block menu %}
+{% include "includes/events_menu.html" %}
+{% endblock %}
+
+{%block facebook%}
+{%endblock%}
+
+<!--content block-->
+{% block content %}
+	<div id="main_img">
+		{%if event.banner %}
+			<img src="{{MEDIA_URL}}/{{event.banner}}" />
+		{% else %}	
+			<img src="{{MEDIA_URL}}/images/home/home.jpg" />
+		{%endif%}		
+
+	</div>
+	<div id="content">
+	
+	<div id="menu">
+		<ul>
+			<li><a href="#name_content_upcoming" id="id_button_upcoming" onclick="change_content('upcoming');">Upcoming Event</a></li>
+			{% for cat in categories %}	
+					<li><a href="#name_content_{{cat.name}}" id="id_button_{{cat.name}}" onclick="change_content('{{cat.name}}');">{{cat.name}}s</a></li>
+					
+
+			{% endfor %}		
+		</ul>
+	</div> 
+
+	<div class="outer" id="div_main_content" style="width:1000px;margin:10px 0px 10px 0px;">
+		<span class="heading"><span class="heading_in" id="span_main_content_heading">{{cat.name}}</span></span>
+		<div class="content_in"">
+			<span id="span_main_content" class="content_in_span">
+			</span>		
+		</div>
+	</div>
+
+	{% for cat in categories %}
+			<div name="name_content_{{cat.name}}" id="id_content_{{cat.name}}" class="outer" style="position:absolute;width:1000px;visibility:hidden;margin:10px 0px 10px 0px;">	
+					{%autoescape off%}
+					{%for event in events%}
+						{%if event.category == cat %}
+						<div class="event_box" style="border-color:{%if event.is_valid%}green{%else%}red{%endif%}">
+							<table cellspacing="8">
+								<tr>
+								<td><table class="table_event_date">
+									<tr style="background-color:#414141; color:white;">
+									<td >{{event.date_event|date:"D"}}</td>
+									</tr>
+			
+									<tr>
+									<td>{{event.date_event|date:"j M"}}</td>
+									</tr>
+							
+									</table>	
+								</td>
+								<td valign="top""><strong>Venue:</strong> {%if event.venue%}{{event.venue}}{%else%}<i>to be finalised</i>{%endif%}<br />
+								<strong>Time:</strong> {{event.date_event|date:"P"}}</td>
+								</tr>						
+							
+								<tr>
+									<td colspan="2"><a class="blue_link" href="/events/{{event.get_link}}">{{event.name}}</a><br />
+{%for guest in guests%}
+	{%if guest.event == event  %}
+		{%if guest.pic%}<img style="margin-top:5px;" src="{{MEDIA_URL}}/{{guest.pic}}" width="50" height="50" alt="{{guest.name}}" title="{{guest.name}}" />	
+		{%endif%}	
+	{%endif%}
+{%endfor%}
+</td>
+								</tr>
+							</table>
+							</div>							
+												
+							{%endif%}
+						{%endfor%}
+					{%endautoescape%}
+				
+			</div>
+	{%endfor%}
+
+	<div id="upcoming_heading" style="position:absolute;visibility:hidden;">{{upcoming.name}}</div>
+<div name="name_content_upcoming" id="id_content_upcoming" class="outer" style="position:absolute;width:1000px;visibility:hidden;margin:10px 0px 10px 0px;">	
+				{%include "includes/facebook.html" %}
+					<span class="content_in_span">
+					<p><a class="blue_link" href="/events/{{upcoming.get_link}}">Visit the main page of this event</a></p>
+					{%if not upcoming.has_stages%}
+						{%if upcoming.is_valid%}
+							<strong style="color:green; font-size:14px;">Event scheduled on {{upcoming.date_event}} at {{upcoming.venue}}</strong>
+						{%else%}
+							<strong style="color:red;">This event concluded on {{upcoming.date_event|date:'j M Y'}}</strong>
+						{%endif%}
+					{%else%}
+						<strong>Please see the <a style="color:blue;" href="/events/{{upcoming.get_link}}/timeline/">timeline</a> for the schedule of this event.</strong>
+					{%endif%}<br /><br />
+
+					{% autoescape off%}
+						{{upcoming.intro}}
+				
+					{%if upcoming_guests %}
+					The following guests are attending the event - <br />		
+					{%endif%}						
+					{% for guest in upcoming_guests %}
+						<div class="div_guest">
+								<img src="{{MEDIA_URL}}/{%if guest.pic%}{{guest.pic}}{%else%}default.jpg{%endif%}" width="150px" height="150px" title="{{guest.name}}" /><br /><strong>{{guest.name}}</strong><br />{%if guest.designation%}{{guest.designation}},{%endif%}  {{guest.organisation}}
+					</div>
+					{%empty%}
+				
+					{%endfor%}				
+										
+					{% endautoescape %}			
+					</span>
+			</div>
+		
+	
+	</div>
+{% endblock %}
+

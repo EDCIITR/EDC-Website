@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block sheets %}
+		<link rel="stylesheet" type="text/css" href="{{MEDIA_URL}}/css/events.css" />
+{% endblock %}
+
+{% block title %}EDC | Events {% endblock %}
+
+<!--menu block-->
+{% block menu %}
+{% include "includes/menu.html" %}
+{% endblock %}
+
+<!--content block-->
+{% block content %}
+	<div id="main_img"><img src="{{MEDIA_URL}}/images/home/home.jpg" /></div>
+
+	<div id="content">
+		<div class="outer" style="width:480px;margin:0px;">			
+		<span class="heading"><span class="heading_in">Flagship events</span></span>
+		<div class="content_in" style="border:0">
+			<span class="content_in_span" style="width:95%">
+				{% for cat in event_categories %}
+					<ul>
+					{%if cat.flagship%} 
+						<li><a href="{{request.path}}{{cat.domain}}/" target="_blank" class="flagship"><strong style="font-size:16px;">{{cat.name}}</strong><br />
+							{{cat.intro|truncatewords:10}}</a>
+						</li>		
+					{%endif%}
+					</ul>				
+				{% endfor %}
+			</span>
+		</div>
+		</div>
+
+		<div class="outer" style="width:500px;">
+		<span class="heading"><span class="heading_in">Other events</span></span>
+		<div class="content_in">
+				{% ifequal count 0 %}
+				<span class="content_in_span"><i>(Watch out this space for events)</i></span>
+				{%else%}
+					{% for event in events %}
+						{%if not event.is_flagship %}
+							<span class="content_in_span">
+						<a href="{{event.get_link}}" {%if event.separate%} target="_blank" {%endif%}>
+							
+							<strong style="font-size:14px;">{{event.category}}</strong>
+							{% if not event.is_valid %}
+								<i style="color:red;">(This event concluded on {{event.date_event|date:"M j, Y"}})</i>								{%else%}
+								<i style="color:green;">(This event is scheduled on {{event.date_event|date:"D, M j, Y"}})</i>		
+							{%endif%}								
+							<br />{{event.name}}<br />
+							</a>
+							</span>	
+						{%endif%}
+					{%endfor%}
+				{% endifequal %}
+			</div>
+		</div>
+	</div><!--content ends here-->
+{% endblock %}
+	

@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block sheets %}
+<link rel="stylesheet" type="text/css" href="{{MEDIA_URL}}/css/events.css" />
+<link rel="stylesheet" type="text/css" href="{{MEDIA_URL}}/css/forms.css" /> 
+<script src="{{MEDIA_URL}}/ckeditor/ckeditor/ckeditor.js"></script>
+
+{% endblock %}
+{% block title %} {{event.get_title}} {%endblock %}
+
+<!--menu block-->
+{% block menu %}
+{% include "includes/events_menu.html" %}
+{% endblock %}
+
+{%block facebook%}
+{%endblock%}
+
+<!--content block-->
+{% block content %}
+	<div id="main_img">
+		{%if event.banner %}
+			<img src="{{MEDIA_URL}}/{{event.banner}}" />
+		{% else %}	
+			<img src="{{MEDIA_URL}}/images/home/home.jpg" />
+		{%endif%}		
+	</div>
+
+	<div id="content">
+		<div class="outer" style="margin:0;width:1000px;"><span class="heading"><span class="heading_in">Result</span></span>
+			<div class="content_in" style="border:0;">
+			<span class="content_in_span">
+			 {%if event.result%}
+				 {%autoescape off%}
+					{{event.result}}
+				 {%endautoescape%}
+				 <hr class="content_ruler" />
+			 {%endif%}	
+
+			<table  cellpadding="10px">
+				<tr style="background-color:#1111aa; color:white;text-align:center;">
+					<td >Team name</td>
+					<td>Members</td>
+					<td>B-Plan Introduction</td>
+       				</tr>			
+				{%for team in teams%}
+					<tr style="background-color:#ececec">
+					<td><strong>{{team.name}}</strong></td>
+					<td width="100"><strong>{{team.get_leader}}</strong>
+					{%if team.member1%}<br />{{team.member1}}{%endif%}
+					</td>
+					<td valign="top">{%autoescape off%}{{team.get_data.intro|truncatewords:50}}{%endautoescape%}</td>
+					</tr>
+			{%endfor%}
+			</table>
+			</span>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+

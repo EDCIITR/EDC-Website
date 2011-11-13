@@ -1,0 +1,46 @@
+from django.contrib import admin
+from recruitments.models import *
+from django import forms
+import os
+import settings
+
+class SetupAdminForm(forms.ModelForm):
+	def clean(self):
+		super(SetupAdminForm, self)
+		try:
+			cleaned_data = self.cleaned_data
+			s = Setup.objects.get(date_recruitment_starts__lt=datetime.now(),date_recruitment_ends__gt=datetime.now())	
+			#print cleaned_data	
+			if not cleaned_data['name']==s.name and is_overlap(s.date_recruitment_starts,s.date_recruitment_ends,cleaned_data['date_recruitment_starts'],cleaned_data['date_recruitment_ends']):
+				raise forms.ValidationError('Recruitments are already happening in this date range called %s'%s.name)				
+		except ObjectDoesNotExist:	
+			pass
+		except KeyError:
+			raise forms.ValidationError('You missed some mandatory parameter')
+
+		return cleaned_data
+	
+	
+
+class CandidateAdmin(admin.ModelAdmin):
+	list_display = ('name','salutation','branch','email','blocked','setup')
+	search_fields = ['salutation',]
+	list_filter = ('salutation','setup','blocked')
+	#date_hierarchy = 'setup.date_recruitment_starts'
+		
+class SetupAdmin(admin.ModelAdmin):
+	form = SetupAdminForm	
+	list_display = ('name','year','date_recruitment_starts','date_recruitment_ends')
+	ordering = ('-date_recruitment_starts',)
+	
+	def save_model(self, request, obj, form, change):
+		try:		
+			os.mkdir(settings.MEDIA_ROOT + '/uploads/recruitments/pdf/' + obj.name)
+		except OSError:
+			pass		
+		obj.save()
+
+admin.site.register(Setup,SetupAdmin)
+admin.site.register(Candidate,CandidateAdmin)
+
+

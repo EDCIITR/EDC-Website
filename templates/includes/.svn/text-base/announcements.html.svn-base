@@ -1,0 +1,25 @@
+{% if announcements %}
+<link rel="stylesheet" type="text/css" href="{{MEDIA_URL}}/css/text_scroller.css" />
+{%if announcements|length > 1 %}
+<script type="text/javascript" src="{{MEDIA_URL}}/js/jquery.js"></script>
+<script type="text/javascript" src="{{MEDIA_URL}}/js/text_scroller.js"></script>
+{%endif%}
+<div class="outer" style="width:320px;float:right; ">
+	<span class="heading"><span class="heading_in">Announcements</span></span>		
+		<div class="content_in">	
+		<span class="content_in_span">
+		<div style="height:75px;">
+		<marquee  scrollamount="1" height="75" direction="up" loop="true" id="mar_announcement" onmouseover="pause();" onmouseout="resume();">
+								{%for obj in announcements%}
+									{{obj.announcement}} <br />
+							<span style="color:red; font-size:10px;">posted {{obj.date_added|timesince}} ago</span>
+								<hr class="content_ruler"/>								
+								{%endfor%}
+							
+					</marquee>
+		</div>
+		</span>		
+		</div>
+	</span>	
+</div><br />
+{%endif%}

@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block sheets %}<link rel="stylesheet" type="text/css" href="{{MEDIA_URL}}/css/forms.css" /> {% endblock %}
+
+{% block title %}EDC | Recruitments {% endblock %}
+
+<!--menu block-->
+{% block menu %}
+{% include "includes/menu.html" %}
+{% endblock %}
+
+<!--content block-->
+{% block content %}
+	<div id="main_img"><img src="{{MEDIA_URL}}/images/home/home.jpg" /></div>
+
+	<div id="content">
+		<div class="outer" style="width:1000px;margin:0px;">
+			<span class="heading"><span class="heading_in">EDC Recruitments</span></span>
+			<div id="about_edc_in" class="content_in" style="border:0;">
+				<span class="content_in_span">
+				<img src="{{MEDIA_URL}}/images/icon_fail.gif" /> EDC is not recruiting currently. 
+				<hr class="content_ruler">				
+				{%if future%}
+					EDC recruitments are scheduled from <strong>{{future.date_recruitment_starts|date:"D, M j Y, P"}}</strong> to <strong>{{future.date_recruitment_ends|date:"D, M j Y,P"}}</strong> for <strong>{{future.get_year_display}} year</strong>. Please visit this page again when the recruitments are on. 
+				<br /><br />			
+				{%endif%} 
+				{%if past%}
+					We recruited last <strong>{{past.date_recruitment_ends|timesince}}</strong> ago.
+				<br /><br />
+				{%endif%}
+				Stay tuned to the updates and newsletters to know more. 
+				</span>
+			</div>
+		</div>
+	</div>	
+{% endblock %}
+

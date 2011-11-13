@@ -1,0 +1,19 @@
+<div id="result_link">
+	           <a href="{{ result.object.get_absolute_url }}">Associate - {%highlight result.object.name with request.GET.q%}</a>
+		   <span class="result_span">
+			<table>
+		<tr><td><img src="{{MEDIA_URL}}/{%if result.object.pic%}{{result.object.pic}}{%else%}default.jpg{%endif%}" width="75" height="75" /></td>
+			<td>
+			{%if result.object.name%}{%highlight result.object.name with request.GET.q%}<br />{%endif%}
+         		{%if result.object.title%}{%highlight result.object.title with request.GET.q%}, {%endif%}
+			{%if result.object.get_event%}{%highlight result.object.get_event.name with request.GET.q%}<br />{%endif%}
+			</td>
+		</tr>		
+		<tr>
+		 <td colspan="2" class="result_summary">{%if result.object.details%} {%highlight result.object.details with request.GET.q [max_length 100]%} {%endif%}</td>
+	
+		
+		</td>
+		</table>
+	</span>
+</div>

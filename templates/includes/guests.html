@@ -1,0 +1,25 @@
+{%if guests%}
+	<br /><br />The following guests are attending the event :
+		<table cellspacing="20">
+			{%for guest in guests%}
+				<tr>
+					<td>
+						{%if guest.pic%}
+							<img src="{{MEDIA_URL}}/{{guest.pic}}" width="150" height="150" />
+						{%else%}
+							<img src="{{MEDIA_URL}}/default.jpg" width="150" height="150" />
+						{%endif%}					
+					</td>
+					<td valign="top">
+						<a name="{{guest.name}}"><strong>{{guest.name}}</strong></a> ({{guest.get_category_display}})<br />
+						{%if guest.designation%}{{guest.designation}},{%endif%} {{guest.organisation}}<br /><br />
+						{{guest.details|truncatewords:100}}<br />
+						{%if not guest.finalised%}
+							<i style="color:red">(not yet finalised)</i>
+						{%endif%}
+					</td>
+				</tr>
+				{%if not forloop.last%}<tr><td colspan="2"><hr class="content_ruler"></td></tr>{%endif%}
+			{%endfor%}
+		</table>		
+{%endif%}			

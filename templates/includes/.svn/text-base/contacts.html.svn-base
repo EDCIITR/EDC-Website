@@ -1,0 +1,14 @@
+{%if coordinators %}
+		<div class="outer" style="width:320px;float:right;">			
+		<span class="heading"><span class="heading_in">Contacts</span></span>
+		<div class="content_in">
+			<span class="content_in_span">
+				{% for contact in coordinators %}
+					<strong>{{contact.name}}</strong><br />
+					 {{contact.email}}<br />
+					 {{contact.phone}}{%if not forloop.last%}<br /><br />{%endif%}
+				{%endfor%}
+			</span>
+		</div>
+		</div>
+{%endif%}

@@ -1,0 +1,6 @@
+{{ object.name }}
+{{ object.organisation }}
+{{ object.designation}}
+{{ object.details }}
+{{ object.specialisation }}
+

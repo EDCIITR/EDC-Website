@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% block sheets %}
+<link rel="stylesheet" type="text/css" href="{{MEDIA_URL}}/css/forms.css" /> 
+<script type="text/javascript" src="{{MEDIA_URL}}/js/jquery.js"></script>
+<script type="text/javascript" src="{{MEDIA_URL}}/js/upload_bar.js"></script>
+
+{% endblock %}
+{% block title %}EDC | Recruitments {% endblock %}
+
+<!--menu block-->
+{% block menu %}
+{% include "includes/menu.html" %}
+{% endblock %}
+
+<!--content block-->
+{% block content %}
+	<div id="main_img"><img src="{{MEDIA_URL}}/images/home/home.jpg" /></div>
+
+	<div id="content">
+		<div class="outer" style="width:660px;margin:0px;">
+			<span class="heading"><span class="heading_in">EDC Recruitments</span></span>
+			<div id="about_edc_in" class="content_in" style="border:0;">
+			<span class="content_in_span">
+				<strong>Note:</strong> EDC recruitments are currently open for {{setup.get_year_display}} Year. Last date to submit the application is {{setup.date_recruitment_ends|date:"D, M j, Y P"}}
+								
+			<div style="border-color:#00aa00;margin-top:10px; border-style:solid;border-width:2px;">
+				<span style="margin:10px;display:block;">
+					{%autoescape off%}
+						{{setup.details}}
+					{%endautoescape%}			
+					</span>
+				</div>
+		
+			<form action="#" method="POST" enctype="multipart/form-data">{% csrf_token %}
+							<table>			
+							 <tr colspan="2"><td>{{form.non_field_errors}}
+									{%if cust_errors%}
+										<ul class="errorlist">
+											{%for err in cust_errors %}
+												<li>{{err}}</li>
+											{%endfor%}
+										</ul>
+									{%endif%}
+									</td>
+							  </tr>
+							{%for field in form %}
+							<tr style="text-align:left">
+								<div class="fieldWrapper">
+								   {% if field.errors %} <tr colspan="2"><td>{{field.errors}}</td></tr> {% endif %}
+        							<td style="width:200px;">{{ field.label_tag }}:</td>
+								 <td>
+									{{ field }}
+								</td>
+        							</div>
+							</td>							
+							</tr>
+							{%endfor%}
+							
+							<tr >
+							<td colspan="2">
+							By clicking submit you agree to the terms and conditions mentioned above
+							</td>
+							</tr>
+							<tr>	
+							<td><input type="submit" value="Submit" /></td>
+							</tr>							
+							</table>						
+						</form>
+				</span>
+			</div>
+		</div>
+
+		<div style="float:right">
+		{% include "includes/contacts.html" %}
+		</div>
+	
+	</div>	
+{% endblock %}
+

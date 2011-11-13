@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block sheets %}<link rel="stylesheet" type="text/css" href="{{MEDIA_URL}}/css/forms.css" /> {% endblock %}
+{% block title %}EDC | Confirmation {% endblock %}
+
+<!--menu block-->
+{% block menu %}
+{% include "includes/menu.html" %}
+{% endblock %}
+
+<!--content block-->
+{% block content %}
+	<div id="main_img"><img src="{{MEDIA_URL}}/images/home/home.jpg" /></div>
+	
+	<div id="content">
+		<div id="thanks" style="width:1000px;">		
+			<span class="heading"><span class="heading_in">Thank you</span></span>
+				<div id="thanks_in" class="content_in">
+					<span class="content_in_span">
+						{%autoescape off%}
+						{%ifequal state 0%}
+							<img src="{{MEDIA_URL}}/images/icon_fail.gif" />
+							<span style="color:red">{{msg}}</span>						
+						{%else%}
+							<img src="{{MEDIA_URL}}/images/icon_success.gif" />
+							<span style="color:green">{{msg}}</span>						
+						{%endifequal%}	
+						{%endautoescape%}
+				</div>		
+		</div>			
+	</div>
+{% endblock %}
+

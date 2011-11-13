@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% block sheets %}<link rel="stylesheet" type="text/css" href="{{MEDIA_URL}}/css/forms.css" /> 
+<script src="{{MEDIA_URL}}/ckeditor/ckeditor/ckeditor.js"></script>
+<style type="text/css">
+textarea
+{
+	width:400px;
+}
+</style>
+{% endblock %}
+{% block title %}EDC | Feedback {% endblock %}
+
+<!--menu block-->
+{% block menu %}
+{% include "includes/menu.html" %}
+{% endblock %}
+
+<!--content block-->
+{% block content %}
+	<div id="main_img"><img src="{{MEDIA_URL}}/images/home/home.jpg" /></div>
+	
+	<div id="content">
+		<div id="register" class="outer" style="width:600px;margin:0;">		
+			<span class="heading"><span class="heading_in">Feedback</span></span>
+				<div id="register_in" class="content_in">
+					<span class="content_in_span">	
+						{% if msg %}
+							<img src="{{MEDIA_URL}}/images/icon_success.gif" /><span style="color:green;">{{msg}}<span>
+						{%else %}
+						<form action="#" method="POST">{% csrf_token %}
+							<table>			
+							 <tr >
+								<td colspan="2">{{form.non_field_errors}}<td>
+							  </tr>
+							{%for field in form %}
+							<tr>
+							<div class="fieldWrapper">
+								   {% if field.errors %} <tr colspan="2"><td>{{field.errors}}</td></tr> {% endif %}
+        							<td>{{ field.label_tag }}:</td>
+								 <td>
+									{{ field }}
+								</td>
+        							</div>
+							</tr>
+							{%endfor%}
+							<tr>
+							<td><input type="submit" value="Submit" /></td>
+							</tr>							
+							</table>						
+						</form>
+						{%endif%}
+					</span>		
+				</div>		
+		</div>			
+
+		<div id="register" class="outer" style="width:385px;">		
+			<span class="heading"><span class="heading_in">Get in touch!</span></span>
+				<div id="register_in" class="content_in">
+					<span class="content_in_span">	
+						We would really appreciate any contribution you wish to make towards our vision. Be it a suggestion, criticism or anything, please do not hesitate to voice your opinion. <br /><br />If you wish to specifically talk to someone from the team, please check out our <a href="/about/team">team list</a>.  					
+					</span>		
+				</div>		
+		</div> 
+
+	</div>
+{% endblock %}
+
