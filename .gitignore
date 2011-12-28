@@ -1,5 +1,7 @@
 *.log
 *.pot
 *.pyc
+*.swp
+*.swo
 local_settings.py
-downsoft/settings.py
+settings.py

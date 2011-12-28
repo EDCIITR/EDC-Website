@@ -102,12 +102,14 @@ USER_MEMBER=0
 USER_JUDGE=1
 USER_MENTOR = 2
 USER_ADMIN = 3
+USER_STARTUP = 4
 
 USER_CATEGORY_CHOICES = (
 				(USER_MEMBER,'Member'),
 				(USER_JUDGE,'Judge'),
 				(USER_MENTOR,'Mentor'),
 				(USER_ADMIN,'Admin'),
+                (USER_STARTUP,'Startup'),
 			)
 
 
