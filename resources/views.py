@@ -5,7 +5,7 @@ from django.template import RequestContext
 from constants import *
 from datetime import datetime
 from resources.models import Mentor,MentorMail
-from resources.forms import MentorMailForm
+from resources.forms import MentorMailForm, StartupRegistrationForm
 from users.models import User
 from datetime import datetime, timedelta
 from django.core.mail import send_mail, EmailMessage
@@ -63,4 +63,12 @@ def mentors(request,mentor_id=None):
 		
 	return HttpResponseRedirect('/users/login?next=%s'%request.path)	
 
-
+def register(request): 
+    form = StartupRegistrationForm(request.POST or None, request.FILES or None)
+    msg = None
+    if form.is_valid():
+        form.save()
+        msg = 'Your startup was registered successfully. '
+    return render_to_response('resources/jobs/register.html',
+            {'list':menu, 'form':form, 'msg':msg},
+            context_instance=RequestContext(request));

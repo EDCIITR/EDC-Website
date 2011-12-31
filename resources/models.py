@@ -29,3 +29,19 @@ class MentorMail(models.Model):
 	def __unicode__(self):
 		return "From %s to %s, about %s"%(self.user.name,self.mentor.name,self.subject)
 
+class Startup(models.Model):
+    startup_name = models.CharField('Startup Name*', max_length=100)
+    description  = models.TextField('Startup Description*', max_length=500)
+    region = models.CharField('Geographical Region*', max_length=100)
+    requirements = models.TextField('Requirements', max_length=1000,blank=True,null=True)
+    logo = models.ImageField('Startup Logo',
+          upload_to='uploads/startup_pics',blank=True,null=True)
+    duration = models.CharField('Duration of Work', max_length=100,blank=True,null=True)
+    salary = models.CharField('Approximate Salary', max_length=100,
+            blank=True, null=True)
+    website = models.URLField('Website*', blank=True,null=True)
+    person_name = models.CharField('Contact Person*', max_length=100)
+    email = models.EmailField('Email*', max_length=50, unique=True)
+    details = models.TextField('More details', max_length=1000,
+            blank=True, null=True)
+
