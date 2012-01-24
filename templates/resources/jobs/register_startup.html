@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% block sheets %}<link rel="stylesheet" type="text/css" href="{{MEDIA_URL}}/css/forms.css" /> 
+<script src="{{MEDIA_URL}}/ckeditor/ckeditor/ckeditor.js"></script>
+<style type="text/css">
+textarea
+{
+	width:400px;
+}
+</style>
+{% endblock %}
+{% block title %}EDC | Jobs@Startups {% endblock %}
+
+<!--menu block-->
+{% block menu %}
+{% include "includes/menu.html" %}
+{% endblock %}
+
+<!--content block-->
+{% block content %}
+	<div id="main_img"><img src="{{MEDIA_URL}}/images/home/home.jpg" /></div>
+	
+	<div id="content">
+		<div id="register" class="outer" style="width:600px;margin:0;">		
+			<span class="heading"><span class="heading_in">Register Startup</span></span>
+				<div id="register_in" class="content_in">
+					<span class="content_in_span">	
+						{% if msg %}
+							<img src="{{MEDIA_URL}}/images/icon_success.gif" /><span style="color:green;"><a href="{% url register-job        %}">{{msg}}</a></span>
+						{% else %}
+						<form action="{% url register-startup %}" method="POST" enctype="multipart/form-data">{% csrf_token %}
+							<table>			
+							 <tr >
+								<td colspan="2">{{form.non_field_errors}}<td>
+							  </tr>
+							{%for field in form %}
+							<tr>
+							<div class="fieldWrapper">
+								   {% if field.errors %} <tr colspan="2"><td>{{field.errors}}</td></tr> {% endif %}
+        							<td>{{ field.label_tag }}:</td>
+								 <td>
+									{{ field }}
+								</td>
+        							</div>
+							</tr>
+							{%endfor%}
+							<tr>
+							<td><input type="submit" value="Submit" /></td>
+							</tr>							
+							</table>						
+						</form>
+						{%endif%}
+					</span>		
+				</div>		
+		</div>			
+
+		<div id="register" class="outer" style="width:385px;">		
+			<span class="heading"><span class="heading_in">Register your Startup!</span></span>
+				<div id="register_in" class="content_in">
+					<span class="content_in_span">	
+					    Jobs@Startups is aimed at aspiring entrepreneurs who
+                        wish to gain an onsite knowledge of the day-to-day
+                        functioning of a startup company. If your startup wishes
+                        offer internships or jobs please register here. <br /><br />If you wish to specifically talk to someone from the team, please check out our <a href="/about/team">team list</a>.
+                        <br />
+                        <br />
+                        If you have already registered your startup, you can <a href="{% url register-job %}">post a job/internship opportunity</a>
+					</span>		
+				</div>		
+		</div> 
+
+	</div>
+{% endblock %}

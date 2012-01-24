@@ -4,8 +4,8 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.template import RequestContext
 from constants import *
 from datetime import datetime
-from resources.models import Mentor,MentorMail
-from resources.forms import MentorMailForm, StartupRegistrationForm
+from resources.models import Mentor,MentorMail,Startup, Job
+from resources.forms import MentorMailForm, StartupRegistrationForm, JobRegistrationForm
 from users.models import User
 from datetime import datetime, timedelta
 from django.core.mail import send_mail, EmailMessage
@@ -63,12 +63,57 @@ def mentors(request,mentor_id=None):
 		
 	return HttpResponseRedirect('/users/login?next=%s'%request.path)	
 
-def register(request): 
-    form = StartupRegistrationForm(request.POST or None, request.FILES or None)
-    msg = None
-    if form.is_valid():
-        form.save()
-        msg = 'Your startup was registered successfully. '
-    return render_to_response('resources/jobs/register.html',
+def register_startup(request):
+    try:
+        if request.session['session_id']:
+            user = get_object_or_404(User,email=request.session['session_id'])
+            form = StartupRegistrationForm(request.POST or None, request.FILES or None)
+            msg = None
+            if form.is_valid():
+                startup = form.save(commit=False)
+                startup.user = user
+                startup.save()
+                msg = 'Your startup was registered successfully. '
+                form = JobRegistrationForm()
+                return render_to_response('resources/jobs/register_job.html',
+                    {'list':menu, 'form':form, 'msg':msg},
+                    context_instance=RequestContext(request))
+            return render_to_response('resources/jobs/register_startup.html',
             {'list':menu, 'form':form, 'msg':msg},
-            context_instance=RequestContext(request));
+            context_instance=RequestContext(request))
+    except KeyError:
+        pass
+    return HttpResponseRedirect('/users/login?next=%s' % request.path)
+
+def register_jobs(request):
+    try:
+        if request.session['session_id']:
+            user = get_object_or_404(User,email=request.session['session_id'])
+            form = JobRegistrationForm(request.POST or None)
+            form.fields['startup'].queryset = Startup.objects.filter(user=user)
+            msg = None
+            if form.is_valid():
+                form.save()
+                msg = 'Your job was registered successfully. '
+                form = JobRegistrationForm()
+            return render_to_response('resources/jobs/register_job.html',
+            {'list':menu, 'form':form, 'msg':msg},
+            context_instance=RequestContext(request))
+    except KeyError:
+        pass
+    return HttpResponseRedirect('/users/login?next=%s' % request.path)
+
+def jobs(request, startup_id=None):
+    if not startup_id:
+        jobs = Job.objects.all()
+        return render_to_response('resources/jobs/jobs.html',
+                {'list':menu,'jobs':jobs}, context_instance=RequestContext(request))
+    try: 
+        if request.session['session_id']:
+            user = get_object_or_404(User, email=request.session['session_id'])
+            job = get_object_or_404(Job, pk=startup_id)
+            return render_to_response('resources/jobs/profile.html',
+                {'list':menu, 'job':job}, context_instance=RequestContext(request))
+    except KeyError:
+        pass
+    return HttpResponseRedirect('/users/login?next=%s' % request.path)

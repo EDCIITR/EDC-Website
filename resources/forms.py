@@ -1,5 +1,5 @@
 from django.db import models
-from resources.models import Startup
+from resources.models import Startup, Job
 from users.models import User
 from django import forms
 from constants import *
@@ -11,3 +11,9 @@ class MentorMailForm(forms.Form):
 class StartupRegistrationForm(forms.ModelForm):
     class Meta:
         model = Startup
+        exclude = ('user', )
+
+class JobRegistrationForm(forms.ModelForm):
+    class Meta:
+        model = Job
+        exclude = ('applicants',)

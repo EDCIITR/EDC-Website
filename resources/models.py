@@ -27,21 +27,41 @@ class MentorMail(models.Model):
 	date_sending = models.DateTimeField('date of sending')
 		
 	def __unicode__(self):
-		return "From %s to %s, about %s"%(self.user.name,self.mentor.name,self.subject)
+		return "From %s to %s, about %s" % (self.user.name,self.mentor.name,self.subject)
 
 class Startup(models.Model):
+    user = models.ForeignKey('users.User')
     startup_name = models.CharField('Startup Name*', max_length=100)
     description  = models.TextField('Startup Description*', max_length=500)
     region = models.CharField('Geographical Region*', max_length=100)
-    requirements = models.TextField('Requirements', max_length=1000,blank=True,null=True)
     logo = models.ImageField('Startup Logo',
           upload_to='uploads/startup_pics',blank=True,null=True)
+    website = models.URLField('Website', blank=True,null=True)
+    iitr_startup = models.BooleanField('Is your startup in IITR ?')
+    
+    def __unicode__(self):
+        return "%s" % self.startup_name
+class Job(models.Model):
+    startup = models.ForeignKey('resources.Startup')
+    position = models.CharField('Position*', max_length=100)
+    requirements = models.TextField('Requirements', max_length=1000,blank=True,null=True)
     duration = models.CharField('Duration of Work', max_length=100,blank=True,null=True)
     salary = models.CharField('Approximate Salary', max_length=100,
             blank=True, null=True)
-    website = models.URLField('Website*', blank=True,null=True)
-    person_name = models.CharField('Contact Person*', max_length=100)
-    email = models.EmailField('Email*', max_length=50, unique=True)
     details = models.TextField('More details', max_length=1000,
             blank=True, null=True)
+    applicants = models.ManyToManyField(User, through='Application')
 
+    def __unicode__(self):
+        return "%s : Position %s" % (self.startup, self.position)
+
+class Application(models.Model):
+    user = models.ForeignKey('users.User')
+    skills = models.CharField('Skills', max_length=200)
+    job = models.ForeignKey('resources.Job')
+    status = models.CharField('Status', max_length=100) #define categories
+    message = models.TextField('Cover Letter')
+    linked_in = models.URLField()
+
+    def __unicode__(self):
+        return '%s applied at %s' % (self.user, self.job)
