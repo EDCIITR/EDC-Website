@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block sheets %}<link rel="stylesheet" type="text/css" href="{{MEDIA_URL}}/css/resources.css" /> {% endblock %}
+{% block title %}EDC | Startups@IITR {% endblock %}
+
+<!--menu block-->
+{% block menu %}
+{% include "includes/menu.html" %}
+{% endblock %}
+
+<!--content block-->
+{% block content %}
+	<div id="main_img"><img src="{{MEDIA_URL}}/images/home/home.jpg" /></div>
+	
+	<div id="content" >
+		<div class="outer" style="margin-left:0px; width:580px; ">			
+		<span class="heading"><span class="heading_in">Startups@IITR</span></span>
+			<span class="content_in" style="border:0;">
+				{% for startup in startups %}
+					<span class="long_link">
+						<a href="{{request.path}}{{startup.id}}">
+							<strong>{{startup.startup_name}}</strong><br />
+							<span
+                                style="font-size:12px;">Description:
+                                {{startup.description|truncatewords:15}}</span>
+							
+						</a>	
+					</span>			
+				{%endfor%}
+			</span>					
+	
+		</div>
+	
+		<div id="other" class="outer">
+			<span class="heading"><span class="heading_in">Guidelines</span></span>
+				<span class="content_in" style="border:0;">
+					<ul style="margin:18px;"><li style="font-size:12px;">{% if not request.session.session_id %}
+						<img src="{{MEDIA_URL}}/images/icon_fail.gif" /><span style="color:red;"> You will have to <a href="/users/login/?next={{request.path}}">login</a> to apply for these startups.</span>
+					{%else%}
+						<img src="{{MEDIA_URL}}/images/icon_success.gif" /><span style="color:green;"> You are logged in as {{request.session.name}}. You can apply for jobs or internships.</span>
+					{%endif%}				
+					</li></ul>
+					<ol style="margin:10px 0px 0px 0px;">
+						<li>You cannot apply for the same position twice at a startup through this portal.</li><br />
+						<li>This portal is intended to provide a meeting ground for potential applicants and awesome startups. Use this portal only for the initiating messages. The startup should respond directly to your Email ID (which will be sent to him automatically through the system).</li><br />
+						<li>Inappropriate messages to the startup shall lead to your blocking from the EDC portal. The startup and team EDC reserve the right to block any user id or litigate a user for unapproved behaviour. </li><br />				
+					</ol>
+				</span>
+		</div>	
+	</div>
+{% endblock %}
+

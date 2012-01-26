@@ -64,6 +64,10 @@ def mentors(request,mentor_id=None):
 		
 	return HttpResponseRedirect('/users/login?next=%s'%request.path)	
 
+def jobindex(request):
+	return render_to_response('resources/jobs/index.html',{'list':menu},context_instance=RequestContext(request))
+ 
+
 def register_startup(request):
     try:
         if request.session['session_id']:
@@ -135,3 +139,13 @@ def jobs(request, startup_id=None):
     except KeyError:
         pass
     return HttpResponseRedirect('/users/login?next=%s' % request.path)
+
+def iitrstartups(request, startup_id=None):
+    if not startup_id:
+        startups = Startup.objects.filter(iitr_startup = True)
+        return render_to_response('resources/iitrstartups/startups.html',
+                {'list':menu,'startups':startups}, context_instance=RequestContext(request))
+    startup = get_object_or_404(Startup, pk=startup_id)
+    return render_to_response('resources/iitrstartups/profile.html',
+            {'list':menu,'startup':startup},
+            context_instance=RequestContext(request))
