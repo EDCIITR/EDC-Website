@@ -55,7 +55,7 @@
 									</ul>
 									<hr class="content_ruler" />
 
-{# check for already applied #}{% if job %}
+							{% if not application %}
 								<form action="#" method="POST">	{% csrf_token %}
 										<table>			
 										 <tr colspan="2"><td>{{form.non_field_errors}}
@@ -82,11 +82,9 @@
 										</tr>							
 										</table>
 										</form>	
-										{%else %}	<!--hours<48-->
+										{%else %}	{# have already applied #}
 											{%if msg%}	
-												{{msg}}
-											{%else%}
-												You have mailed the mentor recently. Please wait. 
+												<img src="{{MEDIA_URL}}/images/icon_success.gif" /><span style="color:green;">{{msg}}</span>
 											 {%endif%}
 										{%endif%}
 						
@@ -104,27 +102,19 @@
 		<div id="other" class="outer" style="width:280px;">
 			<span class="heading"><span class="heading_in">Guidelines</span></span>
 				<span class="content_in" style="border:0;">
-					<span class="content_in_span">
-					{% if not mentor.email_public %}
-			
-						{% if date_last_sent %}
-							It has been <strong>{{date_last_sent|timesince}}</strong> since you last mailed this mentor. 
-						{% else %}
-							You have never mailed this mentor.			
-						{% endif%}
-					<div class="content_in_span">
-						{% if hours > 48 %}
-						<img src="{{MEDIA_URL}}/images/icon_success.gif" /><span style="color:green;"> You can send a message to the mentor				</span>
-						{% else %}
-						<img src="{{MEDIA_URL}}/images/icon_fail.gif" /><span style="color:red;">You cannot mail {{mentor.name}} for another {{time_left}} hours </span>
-						{%endif%}
-					{%endif%}	
+				<ul style="margin:18px;"><li style="font-size:12px;">{% if not request.session.session_id %}
+						<img src="{{MEDIA_URL}}/images/icon_fail.gif" /><span style="color:red;"> You will have to <a href="/users/login/?next={{request.path}}">login</a> to apply for these startups.</span>
+					{%else%}
+						<img src="{{MEDIA_URL}}/images/icon_success.gif" /><span style="color:green;"> You are logged in as {{request.session.name}}. You can apply for jobs or internships.</span>
+					{%endif%}				
+					</li></ul>
 					</divs>
 				
 					<ol style="margin:10px 0px 0px 0px;">
 						<li>You cannot apply for the same position twice at a startup through this portal.</li><br />
 						<li>This portal is intended to provide a meeting ground for potential applicants and awesome startups. Use this portal only for the initiating messages. The startup should respond directly to your Email ID (which will be sent to him automatically through the system).</li><br />
-						<li>Inappropriate messages to the startup shall lead to your blocking from the EDC portal. The startup and team EDC reserve the right to block any user id or litigate a user for unapproved behaviour. </li><br />
+						<li>Inappropriate messages to the startup shall lead to your blocking from the EDC portal. The startup and team EDC reserve the right to block any user id or litigate a user for unapproved behaviour. </li><br/>
+						<li>If you don't have a linked in profile, you can create one at <a href="http://www.linkedin.com/">linkedin.com</a>.</li><br />
 						
 				
 					</ol>

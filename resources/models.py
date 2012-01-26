@@ -1,5 +1,7 @@
 from django.db import models
 from users.models import User
+from datetime import datetime
+
 
 # Create your models here.
 class Mentor(models.Model):
@@ -62,6 +64,7 @@ class Application(models.Model):
     status = models.CharField('Status', max_length=100) #define categories
     message = models.TextField('Cover Letter')
     linked_in = models.URLField()
+    date_applied = models.DateTimeField('Date Applied', default=datetime.now())
 
     def __unicode__(self):
         return '%s applied at %s' % (self.user, self.job)

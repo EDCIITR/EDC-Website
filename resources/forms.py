@@ -1,5 +1,5 @@
 from django.db import models
-from resources.models import Startup, Job
+from resources.models import Startup, Job, Application
 from users.models import User
 from django import forms
 from constants import *
@@ -17,3 +17,8 @@ class JobRegistrationForm(forms.ModelForm):
     class Meta:
         model = Job
         exclude = ('applicants',)
+
+class ApplicationForm(forms.ModelForm):
+    class Meta:
+        model = Application
+        exclude = ('user', 'job', 'status', 'date_applied')

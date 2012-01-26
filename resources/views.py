@@ -4,8 +4,9 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.template import RequestContext
 from constants import *
 from datetime import datetime
-from resources.models import Mentor,MentorMail,Startup, Job
-from resources.forms import MentorMailForm, StartupRegistrationForm, JobRegistrationForm
+from resources.models import Mentor,MentorMail,Startup, Job, Application
+from resources.forms import MentorMailForm, StartupRegistrationForm
+from resources.forms import JobRegistrationForm, ApplicationForm
 from users.models import User
 from datetime import datetime, timedelta
 from django.core.mail import send_mail, EmailMessage
@@ -110,10 +111,27 @@ def jobs(request, startup_id=None):
                 {'list':menu,'jobs':jobs}, context_instance=RequestContext(request))
     try: 
         if request.session['session_id']:
+            msg = ''
             user = get_object_or_404(User, email=request.session['session_id'])
             job = get_object_or_404(Job, pk=startup_id)
+            form = ApplicationForm(request.POST or None)
+            if form.is_valid():
+                applied = form.save(commit=False)
+                applied.user = user
+                applied.job = job
+                applied.status = 'applied'
+                applied.save()
+                msg = 'You have applied successfully.'
+            try:
+                application = Application.objects.get(user=user, job=job)
+            except Application.DoesNotExist:
+                application = None
+            if application and not msg:
+                msg = 'You have already applied on %s' % application.date_applied 
+
             return render_to_response('resources/jobs/profile.html',
-                {'list':menu, 'job':job}, context_instance=RequestContext(request))
+                    {'list':menu, 'job':job, 'form':form, 'msg':msg,
+                        'application':application}, context_instance=RequestContext(request))
     except KeyError:
         pass
     return HttpResponseRedirect('/users/login?next=%s' % request.path)
